@@ -30,7 +30,7 @@ export default function Hero() {
               Download CV
             </a>
             <a
-              href="#contact"
+              href="contact"
               className="px-5 py-2 rounded-full border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
             >
               Contact

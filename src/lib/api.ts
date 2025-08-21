@@ -40,4 +40,21 @@ export async function submitContact(payload: { name: string; email: string; mess
   return (await res.json()) as { message: string; id: string };
 }
 
+export type Experience = {
+  _id?: string;
+  company: string;
+  title: string;
+  period: string;
+  bullets: string[];
+  location?: string;
+  website?: string;
+  order?: number;
+};
+
+export async function fetchExperience() {
+  const res = await fetch(`${API_BASE}/experience`);
+  if (!res.ok) throw new Error('Failed to fetch experience');
+  return (await res.json()) as Experience[];
+}
+
 
