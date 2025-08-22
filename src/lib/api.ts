@@ -31,7 +31,7 @@ export async function fetchProject(slug: string) {
 }
 
 export async function submitContact(payload: { name: string; email: string; message: string }) {
-  const res = await fetch(`${API_BASE}/contact`, {
+  const res = await fetch(`${API_BASE}/contact/create`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),

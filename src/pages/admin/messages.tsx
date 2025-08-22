@@ -15,7 +15,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000/api';
   const key = process.env.ADMIN_API_KEY;
   if (!key) return { notFound: true } as any;
-  const res = await fetch(`${API_BASE}/contact`, { headers: { 'x-api-key': key } });
+  const res = await fetch(`${API_BASE}/contact/get`, { headers: { 'x-api-key': key } });
   if (!res.ok) return { notFound: true } as any;
   const messages = (await res.json()) as Message[];
   return { props: { messages } };
