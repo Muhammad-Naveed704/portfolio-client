@@ -37,7 +37,7 @@ export default function ChatPage() {
     return () => { s.off('chat:message', handler); };
   }, [me, qc, mounted]); // 🔥 updated deps
 
-  const convQ = useQuery({ queryKey: ['conversations'], queryFn: () => fetchConversations(), enabled: Boolean(me) && isAuthenticated });
+  const convQ = useQuery({ queryKey: ['conversations'], queryFn: () => fetchConversations(), enabled: mounted && isAuthenticated });
   const msgsQ = useQuery({ queryKey: ['messages', selected], queryFn: () => fetchMessages(String(selected)), enabled: Boolean(selected) && isAuthenticated });
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [msgsQ.data?.length]);
 
@@ -54,6 +54,7 @@ export default function ChatPage() {
     onSuccess: (data) => {
       if (data?.guestUserId) {
         joinUserRoom(String(data.guestUserId));
+        setSelected(String(data.guestUserId));
       }
       if (data?.message) {
         qc.setQueryData<ChatMessage[]>(['anonMessages'], (old:any) => [ ...(old || []), data.message ]);
@@ -77,6 +78,14 @@ export default function ChatPage() {
   });
 
   const sidebar = useMemo(() => convQ.data || [], [convQ.data]);
+
+  // Auto-select first conversation when authenticated and list loads
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    if (!selected && Array.isArray(sidebar) && sidebar.length > 0) {
+      setSelected(sidebar[0].peer._id);
+    }
+  }, [isAuthenticated, sidebar, selected]);
 
   // 🔥 prevent mismatch by waiting for mount
   if (!mounted) {
@@ -106,10 +115,20 @@ export default function ChatPage() {
             {!isAuthenticated && (
               <div className="text-sm text-gray-500 px-2">Anonymous chat: your messages are private to you and the admin.</div>
             )}
+            {isAuthenticated && sidebar.length === 0 && (
+              <div className="px-2 py-3 text-sm text-gray-500 space-y-2">
+                <p>No chats yet. Send a first message to start a thread.</p>
+              </div>
+            )}
           </div>
         </aside>
         <section className="card p-3 md:col-span-2 h-[70vh] flex flex-col">
-          {isAuthenticated && !selected && <p className="text-sm text-gray-500">Select a chat</p>}
+          {isAuthenticated && !selected && (
+            <div className="mt-2 flex gap-2">
+              <input value={text} onChange={(e)=>setText(e.target.value)} className="card px-3 py-2 flex-1" placeholder="Type a message to start a new chat" />
+              <button onClick={()=> text && anonSendMut.mutate({ text })} className="px-4 py-2 rounded bg-brand text-white">Send</button>
+            </div>
+          )}
           {isAuthenticated && selected && (
             <>
               <div className="flex-1 overflow-y-auto space-y-1 pr-2">
