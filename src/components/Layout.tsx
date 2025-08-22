@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import ThemeToggle from './ThemeToggle';
 import Link from 'next/link';
 import { useAuthToken } from '@/hooks/useAuth';
@@ -12,6 +12,7 @@ type Props = {
 export default function Layout({ title, children }: Props) {
   const { token } = useAuthToken();
   const siteTitle = title ? `${title} | Muhammad Naveed` : 'Muhammad Naveed | MERN Stack Developer';
+  const [open, setOpen] = useState(false);
   return (
     <>
       <Head>
@@ -23,7 +24,10 @@ export default function Layout({ title, children }: Props) {
         <header className="border-b border-gray-200 dark:border-gray-800">
           <div className="container-responsive py-4 flex items-center justify-between">
             <Link href="/" className="font-semibold text-lg">MN.</Link>
-            <nav className="flex items-center gap-4 text-sm">
+            <button className="md:hidden rounded border px-3 py-1 text-sm" onClick={() => setOpen((v) => !v)} aria-label="Toggle Menu">
+              Menu
+            </button>
+            <nav className="hidden md:flex items-center gap-4 text-sm">
               <Link href="/projects" className="hover:text-brand">Projects</Link>
               <Link href="/contact" className="hover:text-brand">Contact</Link>
               {token && <Link href="/admin/projects/create" className="hover:text-brand">Create Project</Link>}
@@ -32,6 +36,18 @@ export default function Layout({ title, children }: Props) {
               <ThemeToggle />
             </nav>
           </div>
+          {open && (
+            <div className="md:hidden border-t border-gray-200 dark:border-gray-800">
+              <div className="container-responsive py-3 flex flex-col gap-2 text-sm">
+                <Link href="/projects" onClick={() => setOpen(false)} className="hover:text-brand">Projects</Link>
+                <Link href="/contact" onClick={() => setOpen(false)} className="hover:text-brand">Contact</Link>
+                {token && <Link href="/admin/projects/create" onClick={() => setOpen(false)} className="hover:text-brand">Create Project</Link>}
+                {token && <Link href="/admin/experience/create" onClick={() => setOpen(false)} className="hover:text-brand">Create Experience</Link>}
+                <Link href="/chat" onClick={() => setOpen(false)} className="hover:text-brand">Chat</Link>
+                <div><ThemeToggle /></div>
+              </div>
+            </div>
+          )}
         </header>
         <main className="flex-1">{children}</main>
         <footer className="border-t border-gray-200 dark:border-gray-800">
