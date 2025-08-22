@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { ReactNode } from 'react';
 import ThemeToggle from './ThemeToggle';
+import Link from 'next/link';
 
 type Props = {
   title?: string;
@@ -19,10 +20,12 @@ export default function Layout({ title, children }: Props) {
       <div className="min-h-screen flex flex-col">
         <header className="border-b border-gray-200 dark:border-gray-800">
           <div className="container-responsive py-4 flex items-center justify-between">
-            <a href="/" className="font-semibold text-lg">MN.</a>
+            <Link href="/" className="font-semibold text-lg">MN.</Link>
             <nav className="flex items-center gap-4 text-sm">
-              <a href="/projects" className="hover:text-brand">Projects</a>
-              <a href="/contact" className="hover:text-brand">Contact</a>
+              <Link href="/projects" className="hover:text-brand">Projects</Link>
+              <Link href="/contact" className="hover:text-brand">Contact</Link>
+              <Link href="/admin/projects/create" className="hover:text-brand">Create Project</Link>
+              <Link href="/admin/experience/create" className="hover:text-brand">Create Experience</Link>
               <ThemeToggle />
             </nav>
           </div>
