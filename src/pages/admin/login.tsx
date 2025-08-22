@@ -14,6 +14,8 @@ export default function AdminLogin() {
       setAuthToken(data.token);
       if (typeof window !== 'undefined') {
         localStorage.setItem('authToken', data.token);
+        if (data?.user?.id) localStorage.setItem('userId', data.user.id);
+        if (data?.user?.name) localStorage.setItem('userName', data.user.name);
       }
       toast.success('Logged in');
       router.push('/');

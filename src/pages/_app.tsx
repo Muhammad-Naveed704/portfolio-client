@@ -2,7 +2,7 @@ import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'next-themes';
 import '@/styles/globals.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Toaster, toast } from 'sonner';
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -26,6 +26,16 @@ export default function App({ Component, pageProps }: AppProps) {
         },
       })
   );
+  // Hydrate auth token for client-side API calls after refresh
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        // dynamic import to avoid circular import at module init
+        import('@/lib/api').then((m) => m.setAuthToken(token));
+      }
+    }
+  }, []);
   return (
     <QueryClientProvider client={client}>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

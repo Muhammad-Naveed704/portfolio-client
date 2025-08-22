@@ -100,4 +100,48 @@ export async function updateExperienceApi(id: string, payload: Partial<Experienc
   return await res.json();
 }
 
+// Chat
+export type ConversationPreview = { peer: { _id: string; name: string; email: string }; lastMessage: any; unread: number };
+export type ChatMessage = { _id: string; senderId: string; receiverId: string; message: string; createdAt: string };
+
+export async function fetchConversations() {
+  const res = await fetch(`${API_BASE}/chat/conversations`, { headers: { Authorization: `Bearer ${authToken}` } });
+  if (!res.ok) throw new Error('Failed to load conversations');
+  return (await res.json()) as ConversationPreview[];
+}
+
+export async function fetchMessages(peerUserId: string) {
+  const res = await fetch(`${API_BASE}/chat/messages/${peerUserId}`, { headers: { Authorization: `Bearer ${authToken}` } });
+  if (!res.ok) throw new Error('Failed to load messages');
+  return (await res.json()) as ChatMessage[];
+}
+
+export async function sendMessageApi(receiverId: string, message: string) {
+  const res = await fetch(`${API_BASE}/chat/messages`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${authToken}` }, body: JSON.stringify({ receiverId, message }) });
+  if (!res.ok) throw new Error('Failed to send message');
+  return (await res.json()) as ChatMessage;
+}
+
+// Anonymous chat
+export async function sendAnonymousMessage(name: string, message: string) {
+  const visitorKey = typeof window !== 'undefined' ? localStorage.getItem('visitorKey') : null;
+  const res = await fetch(`${API_BASE}/chat/anonymous/send`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, message, visitorKey }) });
+  if (!res.ok) throw new Error('Failed to send');
+  const data = await res.json();
+  if (typeof window !== 'undefined') {
+    if (data?.visitorKey) localStorage.setItem('visitorKey', data.visitorKey);
+    if (data?.guestUserId) localStorage.setItem('guestUserId', data.guestUserId);
+  }
+  return data;
+}
+
+export async function getAnonymousHistory() {
+  const visitorKey = typeof window !== 'undefined' ? localStorage.getItem('visitorKey') : null;
+  const url = new URL(`${API_BASE}/chat/anonymous/history`);
+  if (visitorKey) url.searchParams.set('visitorKey', visitorKey);
+  const res = await fetch(url.toString());
+  if (!res.ok) throw new Error('Failed to load history');
+  return await res.json();
+}
+
 
