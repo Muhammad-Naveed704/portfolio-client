@@ -1,6 +1,7 @@
 import Layout from '@/components/Layout';
 import { submitContact } from '@/lib/api';
 import { FormEvent, useState } from 'react';
+import { toast } from 'sonner';
 
 export default function ContactPage() {
   const [loading, setLoading] = useState(false);
@@ -21,9 +22,12 @@ export default function ContactPage() {
         message: String(formData.get('message') || ''),
       });
       setOk(res.message);
+      toast.success('Message sent');
       form.reset();
     } catch (e: any) {
-      setErr(e?.message || 'Failed to send');
+      const msg = e?.message || 'Failed to send';
+      setErr(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }

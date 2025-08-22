@@ -1,12 +1,12 @@
 import { Project } from '@/lib/api';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 type Props = { project: Project };
 
 export default function ProjectCard({ project }: Props) {
   return (
-    <motion.a
-      href={`/projects/${project.slug}`}
+    <motion.div
       className="card overflow-hidden hover:shadow-md transition-shadow"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -16,7 +16,7 @@ export default function ProjectCard({ project }: Props) {
         // eslint-disable-next-line @next/next/no-img-element
         <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
       )}
-      <div className="p-5">
+      <Link href={`/projects/${project.slug}`} className="block p-5">
         <div className="flex items-center justify-between gap-3">
           <h3 className="text-lg font-semibold">{project.title}</h3>
           {project.featured && <span className="text-xs px-2 py-1 rounded bg-brand/10 text-brand">Featured</span>}
@@ -31,8 +31,8 @@ export default function ProjectCard({ project }: Props) {
             ))}
           </div>
         )}
-      </div>
-    </motion.a>
+      </Link>
+    </motion.div>
   );
 }
 

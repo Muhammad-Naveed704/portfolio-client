@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { ReactNode } from 'react';
 import ThemeToggle from './ThemeToggle';
 import Link from 'next/link';
+import { useAuthToken } from '@/hooks/useAuth';
 
 type Props = {
   title?: string;
@@ -9,6 +10,7 @@ type Props = {
 };
 
 export default function Layout({ title, children }: Props) {
+  const { token } = useAuthToken();
   const siteTitle = title ? `${title} | Muhammad Naveed` : 'Muhammad Naveed | MERN Stack Developer';
   return (
     <>
@@ -24,8 +26,9 @@ export default function Layout({ title, children }: Props) {
             <nav className="flex items-center gap-4 text-sm">
               <Link href="/projects" className="hover:text-brand">Projects</Link>
               <Link href="/contact" className="hover:text-brand">Contact</Link>
-              <Link href="/admin/projects/create" className="hover:text-brand">Create Project</Link>
-              <Link href="/admin/experience/create" className="hover:text-brand">Create Experience</Link>
+              {token && <Link href="/admin/projects/create" className="hover:text-brand">Create Project</Link>}
+              {token && <Link href="/admin/experience/create" className="hover:text-brand">Create Experience</Link>}
+              <Link href="/chat" className="hover:text-brand">Chat</Link>
               <ThemeToggle />
             </nav>
           </div>

@@ -3,6 +3,7 @@ import { Project, updateProjectApi, fetchProjects } from '@/lib/api';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { FormEvent, useMemo } from 'react';
+import { toast } from 'sonner';
 
 export default function EditProjectPage() {
   const router = useRouter();
@@ -16,7 +17,8 @@ export default function EditProjectPage() {
 
   const mutation = useMutation({
     mutationFn: async (p: Partial<Project>) => updateProjectApi(String(id), p),
-    onSuccess: (data) => router.push(`/projects/${data.slug}`),
+    onSuccess: (data) => { toast.success('Project updated'); router.push(`/projects/${data.slug}`)},
+    onError: (e: any) => toast.error(e?.message || 'Failed to update project'),
   });
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {

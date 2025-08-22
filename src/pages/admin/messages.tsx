@@ -1,5 +1,6 @@
 import Layout from '@/components/Layout';
-import type { GetServerSideProps } from 'next';
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 type Message = {
   _id: string;
@@ -9,19 +10,26 @@ type Message = {
   createdAt: string;
 };
 
-type Props = { messages: Message[] };
-
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000/api';
-  const key = process.env.ADMIN_API_KEY;
-  if (!key) return { notFound: true } as any;
-  const res = await fetch(`${API_BASE}/contact/get`, { headers: { 'x-api-key': key } });
-  if (!res.ok) return { notFound: true } as any;
-  const messages = (await res.json()) as Message[];
-  return { props: { messages } };
-};
-
-export default function AdminMessages({ messages }: Props) {
+export default function AdminMessages() {
+  const [messages, setMessages] = useState<Message[]>([]);
+  useEffect(() => {
+    async function load() {
+      const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000/api';
+      const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+      if (!token) {
+        toast.error('Please login to view messages');
+        return;
+      }
+      try {
+        const res = await fetch(`${API_BASE}/contact/get`, { headers: { Authorization: `Bearer ${token}` } });
+        if (!res.ok) throw new Error('Failed to load messages');
+        setMessages(await res.json());
+      } catch (e: any) {
+        toast.error(e?.message || 'Error fetching messages');
+      }
+    }
+    load();
+  }, []);
   return (
     <Layout title="Admin | Messages">
       <section className="container-responsive py-12">

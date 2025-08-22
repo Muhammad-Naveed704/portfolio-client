@@ -4,6 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { setAuthToken } from '@/lib/api';
 import { useRouter } from 'next/router';
 import { FormEvent, useEffect } from 'react';
+import { toast } from 'sonner';
 
 export default function AdminLogin() {
   const router = useRouter();
@@ -14,8 +15,10 @@ export default function AdminLogin() {
       if (typeof window !== 'undefined') {
         localStorage.setItem('authToken', data.token);
       }
+      toast.success('Logged in');
       router.push('/');
     },
+    onError: (e: any) => toast.error(e?.message || 'Login failed'),
   });
 
   useEffect(() => {

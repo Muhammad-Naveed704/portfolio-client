@@ -3,12 +3,14 @@ import { createProjectApi, Project } from '@/lib/api';
 import { useMutation } from '@tanstack/react-query';
 import { FormEvent } from 'react';
 import { useRouter } from 'next/router';
+import { toast } from 'sonner';
 
 export default function CreateProjectPage() {
   const router = useRouter();
   const mutation = useMutation({
     mutationFn: async (p: Project) => createProjectApi(p),
-    onSuccess: (data) => router.push(`/projects/${data.slug}`),
+    onSuccess: (data) => { toast.success('Project created'); router.push(`/projects/${data.slug}`) },
+    onError: (e: any) => toast.error(e?.message || 'Failed to create project'),
   });
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {

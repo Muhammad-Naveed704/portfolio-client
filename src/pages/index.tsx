@@ -6,6 +6,7 @@ import Experience from '@/components/Experience';
 import ProjectCard from '@/components/ProjectCard';
 import { fetchProjects, Project } from '@/lib/api';
 import { GetServerSideProps } from 'next';
+import Link from 'next/link';
 
 type Props = { featured: Project[] };
 
@@ -26,7 +27,7 @@ export default function Home({ featured }: Props) {
       <section className="container-responsive py-16" id="projects">
         <div className="flex items-end justify-between">
           <h2 className="text-2xl font-semibold">Featured Projects</h2>
-          <a href="/projects" className="text-brand text-sm hover:underline">View all</a>
+          <Link href="/projects" className="text-brand text-sm hover:underline">View all</Link>
         </div>
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {featured.map((p) => (

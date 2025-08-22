@@ -3,12 +3,14 @@ import { createExperienceApi, Experience } from '@/lib/api';
 import { useMutation } from '@tanstack/react-query';
 import { FormEvent } from 'react';
 import { useRouter } from 'next/router';
+import { toast } from 'sonner';
 
 export default function CreateExperiencePage() {
   const router = useRouter();
   const mutation = useMutation({
     mutationFn: async (p: Experience) => createExperienceApi(p),
-    onSuccess: () => router.push('/'),
+    onSuccess: () => { toast.success('Experience created'); router.push('/') },
+    onError: (e: any) => toast.error(e?.message || 'Failed to create experience'),
   });
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {

@@ -3,6 +3,7 @@ import { Experience, updateExperienceApi } from '@/lib/api';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { FormEvent, useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 export default function EditExperiencePage() {
   const router = useRouter();
@@ -21,7 +22,8 @@ export default function EditExperiencePage() {
 
   const mutation = useMutation({
     mutationFn: async (p: Partial<Experience>) => updateExperienceApi(String(id), p),
-    onSuccess: () => router.push('/'),
+    onSuccess: () => { toast.success('Experience updated'); router.push('/') },
+    onError: (e: any) => toast.error(e?.message || 'Failed to update experience'),
   });
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
