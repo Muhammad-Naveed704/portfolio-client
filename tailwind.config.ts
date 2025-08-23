@@ -11,9 +11,16 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          DEFAULT: '#3b82f6',
-          dark: '#2563eb'
-        }
+          DEFAULT: 'var(--color-primary)',
+          dark: '#5b21b6'
+        },
+        surface: 'var(--color-surface)',
+        muted: 'var(--color-muted)',
+        border: 'var(--color-border)'
+      },
+      fontFamily: {
+        display: ['var(--font-display)', 'ui-sans-serif', 'system-ui'],
+        body: ['var(--font-body)', 'ui-sans-serif', 'system-ui']
       }
     },
   },

@@ -1,0 +1,28 @@
+:root {
+  --color-bg: #0b0e14;
+  --color-surface: #111827;
+  --color-muted: #6b7280;
+  --color-border: #1f2937;
+  --color-primary: #ff7a00; /* Figma orange accent */
+  --color-primary-contrast: #ffffff;
+}
+
+.light {
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-muted: #4b5563;
+  --color-border: #e5e7eb;
+  --color-primary: #ff7a00; /* Figma orange accent */
+  --color-primary-contrast: #ffffff;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+}
+
+.btn-primary:hover {
+  filter: brightness(0.95);
+}
+
+

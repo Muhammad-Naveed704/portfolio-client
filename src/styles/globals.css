@@ -28,4 +28,19 @@ img, video {
   height: auto;
 }
 
+/* Simple marquee utility */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-container {
+  overflow: hidden;
+}
+.marquee-track {
+  display: flex;
+  gap: 2rem;
+  white-space: nowrap;
+  animation: marquee 20s linear infinite;
+}
+
 
