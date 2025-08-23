@@ -9,6 +9,7 @@ import CTAEmail from '@/components/CTAEmail';
 import BlogPosts from '@/components/BlogPosts';
 import ProjectCard from '@/components/ProjectCard';
 import PortfolioShowcase from '@/components/PortfolioShowcase';
+import GithubShowcase from '@/components/GithubShowcase';
 import { fetchProjects, Project } from '@/lib/api';
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
@@ -49,6 +50,7 @@ export default function Home({ featured }: Props) {
       <Testimonials />
       <CTAEmail />
       <BlogPosts />
+      <GithubShowcase />
     </Layout>
   );
 }

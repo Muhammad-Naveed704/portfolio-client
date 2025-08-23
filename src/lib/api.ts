@@ -122,6 +122,25 @@ export async function sendMessageApi(receiverId: string, message: string) {
   return (await res.json()) as ChatMessage;
 }
 
+// Public GitHub API – recent repositories by user
+export type GitHubRepo = {
+  id: number;
+  name: string;
+  html_url: string;
+  description: string | null;
+  stargazers_count: number;
+  forks_count: number;
+  language: string | null;
+  updated_at: string;
+};
+
+export async function fetchGithubRepos(username: string, limit = 6) {
+  const url = `https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=updated&per_page=${limit}`;
+  const res = await fetch(url, { headers: { 'Accept': 'application/vnd.github+json' } });
+  if (!res.ok) throw new Error('Failed to load GitHub repositories');
+  return (await res.json()) as GitHubRepo[];
+}
+
 // Anonymous chat
 export async function sendAnonymousMessage(name: string, message: string) {
   const visitorKey = typeof window !== 'undefined' ? localStorage.getItem('visitorKey') : null;
