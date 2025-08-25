@@ -15,38 +15,31 @@ export default function CreateProjectPage() {
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
-    const payload: Project = {
-      title: String(fd.get('title') || ''),
-      slug: String(fd.get('slug') || ''),
-      description: String(fd.get('description') || ''),
-      longDescription: String(fd.get('longDescription') || ''),
-      image: String(fd.get('image') || ''),
-      techStack: String(fd.get('techStack') || '')
-        .split(',')
-        .map((s) => s.trim())
-        .filter(Boolean),
-      tags: String(fd.get('tags') || '')
-        .split(',')
-        .map((s) => s.trim())
-        .filter(Boolean),
-      githubUrl: String(fd.get('githubUrl') || ''),
-      liveUrl: String(fd.get('liveUrl') || ''),
-      featured: Boolean(fd.get('featured')),
-    };
-    mutation.mutate(payload);
+    const formEl = e.currentTarget;
+    const fd = new FormData(formEl);
+    // Normalize arrays to JSON strings as backend parses JSON for arrays
+    const techStack = String(fd.get('techStack') || '').split(',').map((s) => s.trim()).filter(Boolean);
+    const tags = String(fd.get('tags') || '').split(',').map((s) => s.trim()).filter(Boolean);
+    fd.set('techStack', JSON.stringify(techStack));
+    fd.set('tags', JSON.stringify(tags));
+    // Checkbox handling
+    if (!fd.get('featured')) fd.set('featured', '');
+    mutation.mutate(fd as any);
   }
 
   return (
     <Layout title="Create Project">
       <section className="container-responsive py-12">
         <h1 className="text-2xl font-semibold">Create Project</h1>
-        <form onSubmit={onSubmit} className="mt-6 grid gap-3 max-w-2xl">
+        <form onSubmit={onSubmit} className="mt-6 grid gap-4 max-w-2xl">
           <input name="title" placeholder="Title" className="card px-4 py-3" required />
           <input name="slug" placeholder="Slug (unique)" className="card px-4 py-3" required />
           <textarea name="description" rows={3} placeholder="Short description" className="card px-4 py-3" required />
           <textarea name="longDescription" rows={6} placeholder="Long description" className="card px-4 py-3" />
-          <input name="image" placeholder="Image URL" className="card px-4 py-3" />
+          <div className="card px-4 py-3">
+            <label className="block text-sm mb-2">Cover image</label>
+            <input type="file" name="image" accept="image/*" className="block w-full text-sm" />
+          </div>
           <input name="techStack" placeholder="Tech stack (comma separated)" className="card px-4 py-3" />
           <input name="tags" placeholder="Tags (comma separated)" className="card px-4 py-3" />
           <input name="githubUrl" placeholder="GitHub URL" className="card px-4 py-3" />

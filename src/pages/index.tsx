@@ -27,6 +27,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 };
 
 export default function Home({ featured }: Props) {
+  console.log("FEATURED PROJECTS: ", featured);
   return (
     <Layout title="Home">
       <Hero />
@@ -34,7 +35,7 @@ export default function Home({ featured }: Props) {
       <About />
       <PortfolioShowcase projects={featured} />
       <section className="container-responsive py-16" id="projects">
-        <div className="flex items-end justify-between">
+        <div className="flex items-end justify-between"> 
           <h2 className="text-2xl font-semibold">Featured Projects</h2>
           <Link href="/projects" className="text-brand text-sm hover:underline">View all</Link>
         </div>

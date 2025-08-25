@@ -1,10 +1,16 @@
 import { Project } from '@/lib/api';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { assetUrl } from '@/lib/url';
+import Image from 'next/image';
+
 
 type Props = { project: Project };
 
 export default function ProjectCard({ project }: Props) {
+
+  
+
   return (
     <motion.div
       className="card overflow-hidden hover:shadow-md transition-shadow"
@@ -12,9 +18,9 @@ export default function ProjectCard({ project }: Props) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
     >
+  
       {project.image && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
+        <Image src={assetUrl(project.image)} alt={project.title} fill className="w-full h-48 object-cover" />
       )}
       <Link href={`/projects/${project.slug}`} className="block p-5">
         <div className="flex items-center justify-between gap-3">
@@ -35,5 +41,3 @@ export default function ProjectCard({ project }: Props) {
     </motion.div>
   );
 }
-
-

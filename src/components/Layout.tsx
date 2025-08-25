@@ -39,6 +39,7 @@ export default function Layout({ title, children }: Props) {
                 <Link href="#experience" className="px-3 py-1 rounded-full hover:bg-white/10">Resume</Link>
                 <Link href="#projects" className="px-3 py-1 rounded-full hover:bg-white/10">Project</Link>
                 <Link href="/contact" className="px-3 py-1 rounded-full hover:bg-white/10">Contact</Link>
+                <Link href="/chat" className="px-3 py-1 rounded-full hover:bg-white/10">Chat</Link>
               </nav>
             </div>
           </div>
@@ -49,8 +50,9 @@ export default function Layout({ title, children }: Props) {
                 <Link href="#about" onClick={() => setOpen(false)} className="hover:text-brand">About</Link>
                 <Link href="#services" onClick={() => setOpen(false)} className="hover:text-brand">Service</Link>
                 <Link href="#experience" onClick={() => setOpen(false)} className="hover:text-brand">Resume</Link>
-                <Link href="#projects" onClick={() => setOpen(false)} className="hover:text-brand">Project</Link>
+                <Link href="projects" onClick={() => setOpen(false)} className="hover:text-brand">Project</Link>
                 <Link href="/contact" onClick={() => setOpen(false)} className="hover:text-brand">Contact</Link>
+                <Link href="/chat" onClick={() => setOpen(false)} className="hover:text-brand">chat</Link>
                 {token && <Link href="/admin/projects/create" onClick={() => setOpen(false)} className="hover:text-brand">Create Project</Link>}
                 {token && <Link href="/admin/experience/create" onClick={() => setOpen(false)} className="hover:text-brand">Create Experience</Link>}
                 <div className="mt-2"><ThemeToggle /></div>

@@ -1,6 +1,7 @@
 import Layout from '@/components/Layout';
 import { fetchProject, Project } from '@/lib/api';
 import { GetServerSideProps } from 'next';
+import { assetUrl } from '@/lib/url';
 
 type Props = { project: Project | null };
 
@@ -23,7 +24,7 @@ export default function ProjectDetail({ project }: Props) {
         <p className="mt-3 text-gray-600 dark:text-gray-300 max-w-3xl">{project.longDescription || project.description}</p>
         {project.image && (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={project.image} alt={project.title} className="mt-6 rounded-xl border border-gray-200 dark:border-gray-800" />
+          <img src={assetUrl(project.image)} alt={project.title} className="mt-6 rounded-xl border border-gray-200 dark:border-gray-800" />
         )}
         <div className="mt-6 flex flex-wrap gap-3">
           {project.techStack?.map((t) => (

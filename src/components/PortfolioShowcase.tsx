@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { Project } from '@/lib/api';
+import Image from 'next/image';
+import { assetUrl } from '@/lib/url';
 
 type Props = { projects: Project[] };
 
@@ -24,7 +26,8 @@ export default function PortfolioShowcase({ projects }: Props) {
           {projects.map((p) => (
             <article key={p.slug} className="rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              {p.image && <img src={p.image} alt={p.title} className="w-full h-56 object-cover" />}
+
+              {p.image && <Image src={assetUrl(p.image)} width={1} height={1} alt={p.title} className=" h-56 object-cover w-full" />}
               <div className="p-4 flex items-center justify-between">
                 <h3 className="text-lg font-semibold">{p.title}</h3>
                 <Link href={`/projects/${p.slug}`} className="w-10 h-10 rounded-full bg-black/80 text-white grid place-items-center hover:bg-brand">↗</Link>

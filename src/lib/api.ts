@@ -29,6 +29,8 @@ export async function fetchProjects(params?: { tag?: string; featured?: boolean 
   return (await res.json()) as Project[];
 }
 
+
+
 export async function fetchProject(slug: string) {
   const res = await fetch(`${API_BASE}/projects/${slug}`);
   if (!res.ok) throw new Error('Failed to fetch project');
@@ -76,8 +78,20 @@ export async function register(payload: { name: string; email: string; password:
 }
 
 // Admin protected APIs
-export async function createProjectApi(payload: Project) {
-  const res = await fetch(`${API_BASE}/projects/create`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${authToken}` }, body: JSON.stringify(payload) });
+export async function createProjectApi(payload: Project | FormData) {
+  const form = payload instanceof FormData ? payload : (() => {
+    const fd = new FormData();
+    Object.entries(payload as any).forEach(([k, v]) => {
+      if (v === undefined || v === null) return;
+      if (Array.isArray(v)) {
+        fd.append(k, JSON.stringify(v));
+      } else {
+        fd.append(k, v as any);
+      }
+    });
+    return fd;
+  })();
+  const res = await fetch(`${API_BASE}/projects/create`, { method: 'POST', headers: { Authorization: `Bearer ${authToken}` }, body: form });
   if (!res.ok) throw new Error('Failed to create project');
   return await res.json();
 }
@@ -88,8 +102,16 @@ export async function updateProjectApi(id: string, payload: Partial<Project>) {
   return await res.json();
 }
 
-export async function createExperienceApi(payload: Experience) {
-  const res = await fetch(`${API_BASE}/experience/create`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${authToken}` }, body: JSON.stringify(payload) });
+export async function createExperienceApi(payload: Experience | FormData) {
+  const form = payload instanceof FormData ? payload : (() => {
+    const fd = new FormData();
+    Object.entries(payload as any).forEach(([k, v]) => {
+      if (v === undefined || v === null) return;
+      fd.append(k, Array.isArray(v) ? JSON.stringify(v) : (v as any));
+    });
+    return fd;
+  })();
+  const res = await fetch(`${API_BASE}/experience/create`, { method: 'POST', headers: { Authorization: `Bearer ${authToken}` }, body: form });
   if (!res.ok) throw new Error('Failed to create experience');
   return await res.json();
 }
