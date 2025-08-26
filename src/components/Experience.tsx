@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Experience as Exp, fetchExperience } from '@/lib/api';
 import { motion } from 'framer-motion';
+import { assetUrl } from '@/lib/url';
+import Image from 'next/image';
 
 export default function Experience() {
   const [items, setItems] = useState<Exp[]>([]);
@@ -31,7 +33,23 @@ export default function Experience() {
               <div className="flex items-start justify-between gap-4">
                 <div className="flex items-start gap-4 min-w-0">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={`https://ui-avatars.com/api/?background=random&name=${encodeURIComponent(r.company)}`} alt={r.company} className="w-12 h-12 rounded-xl border border-gray-200 dark:border-gray-800 object-cover" />
+                 
+                 {r?.logo ? (
+  <Image
+    src={assetUrl(r.logo)}
+    alt={r.company}
+    width={48}
+    height={48}
+    className="w-12 h-12 rounded-xl border border-gray-200 dark:border-gray-800 object-cover"
+  />
+) : (
+  <img
+    src={`https://ui-avatars.com/api/?background=random&name=${encodeURIComponent(r.company)}`}
+    alt={r.company}
+    className="w-12 h-12 rounded-xl border border-gray-200 dark:border-gray-800 object-cover"
+  />
+)}
+      
                   <div className="min-w-0 text-left">
                     <h3 className="font-semibold text-lg leading-snug truncate">{r.title}</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-300 truncate">{r.company}{r.location ? `, ${r.location}` : ''}</p>
