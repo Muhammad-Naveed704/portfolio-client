@@ -14,35 +14,48 @@ import { fetchProjects, Project } from '@/lib/api';
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import Services from '@/components/Services';
+import ProjectsPage from './projects';
 
-type Props = { featured: Project[] };
+type Props = { featured: Project[]; allProjects: Project[] };
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   try {
     const featured = await fetchProjects({ featured: true });
-    return { props: { featured } };
-  } catch {
-    return { props: { featured: [] } };
+    const allProjects = await fetchProjects({});
+    console.log("Fetched featured projects:", featured);
+    console.log("Fetched all projects:", allProjects);
+    return { props: { featured, allProjects } };
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    return { props: { featured: [], allProjects: [] } };
   }
 };
 
-export default function Home({ featured }: Props) {
-  console.log("FEATURED PROJECTS: ", featured);
+export default function Home({ featured, allProjects }: Props) {
+  console.log("FEATURED PROJECTS in Home:", featured);
+  console.log("ALL PROJECTS in Home:", allProjects);
   return (
     <Layout title="Home">
       <Hero />
       <Services />
       <About />
-      <PortfolioShowcase projects={featured} />
+      {/* <ProjectsPage /> */}
+      <PortfolioShowcase projects={allProjects} />
       <section className="container-responsive py-16" id="projects">
-        <div className="flex items-end justify-between"> 
+        <div className="flex items-end justify-between">
           <h2 className="text-2xl font-semibold">Featured Projects</h2>
-          <Link href="/projects" className="text-brand text-sm hover:underline">View all</Link>
+          <Link href="/projects" className="text-brand text-sm hover:underline">
+            View all
+          </Link>
         </div>
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featured.map((p) => (
-            <ProjectCard key={p.slug} project={p} />
-          ))}
+          {featured.length === 0 ? (
+            <p className="text-gray-600 dark:text-gray-300">No featured projects available.</p>
+          ) : (
+            featured.map((p) => (
+              <ProjectCard key={p.slug} project={p} />
+            ))
+          )}
         </div>
       </section>
       <Skills />
@@ -55,5 +68,3 @@ export default function Home({ featured }: Props) {
     </Layout>
   );
 }
-
-

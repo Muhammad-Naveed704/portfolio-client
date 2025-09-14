@@ -13,7 +13,7 @@ export type Project = {
   featured?: boolean;
 };
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000/api';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:8000/api';
 let authToken: string | null = null;
 
 export function setAuthToken(token: string | null) {

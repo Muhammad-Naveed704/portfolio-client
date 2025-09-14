@@ -6,8 +6,14 @@ const nextConfig = {
       {
         protocol: 'http',
         hostname: 'localhost',
-        port: '4000',
-        pathname: '/uploads/**',
+        port: '8000',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'example.com',
+        port: '',
+        pathname: '/**', // allow all images from example.com
       },
     ],
   },

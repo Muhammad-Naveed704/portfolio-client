@@ -10,12 +10,12 @@ const services: Service[] = [
   {
     title: 'UI/ UX Design',
     image:
-      'https://images.unsplash.com/photo-1559027615-5f66825c1b66?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1532614338840-ab30cf10ed36?q=80&w=1200&auto=format&fit=crop',
   },
   {
     title: 'Web Design',
     image:
-      'https://images.unsplash.com/photo-1529336953121-d090d08ac995?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1532614338840-ab30cf10ed36?q=80&w=1200&auto=format&fit=crop',
   },
   {
     title: 'Landing Page',

@@ -25,8 +25,8 @@ export default function Layout({ title, children }: Props) {
           <div className="container-responsive py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center font-bold">J</div>
-                <Link href="/" className="font-semibold">JCREA</Link>
+                <div className="w-10 h-10 rounded-full bg-brand text-white flex items-center justify-center font-bold">MN</div>
+                <Link href="/" className="font-semibold">Muhammad Naveed</Link>
               </div>
               <button className="md:hidden rounded-full border px-4 py-1 text-sm" onClick={() => setOpen((v) => !v)} aria-label="Toggle Menu">
                 Menu
