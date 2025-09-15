@@ -20,7 +20,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.6 }}
           >
-            Senior MERN Stack Developer — 5+ years building scalable web and mobile experiences.
+          I am Muhammad Naveed, a MERN Stack Developer with 5+ years of experience building high-performance web and mobile applications. I specialize in Next.js, React, Node.js, and MongoDB, crafting scalable architectures, clean UI/UX, and robust APIs. I’ve delivered e-commerce, dashboards, and mobile backends for international clients.
           </motion.p>
           <div className="mt-6 flex flex-wrap gap-3">
             <a
@@ -37,9 +37,9 @@ export default function Hero() {
             </a>
           </div>
           {/* Left quote block */}
-          <div className="hidden sm:block mt-8 max-w-sm">
+          {/* <div className="hidden sm:block mt-8 max-w-sm">
             <p className="text-sm text-gray-500">“Naveed’s exceptional product design ensures our website’s success. Highly recommended.”</p>
-          </div>
+          </div> */}
         </div>
         <div className="justify-self-center order-first md:order-none relative">
           {/* background semicircle */}
@@ -50,7 +50,7 @@ export default function Hero() {
           {/* Right stars and years */}
           <div className="hidden md:flex flex-col items-center gap-1 absolute right-[-5rem] top-4">
             <div className="flex gap-1 text-brand">★★★★★</div>
-            <div className="text-sm text-gray-700 dark:text-gray-200"><span className="font-semibold">10 Years</span><br/>Experience</div>
+            <div className="text-sm text-gray-700 dark:text-gray-200"><span className="font-semibold">02 Years</span><br/>Experience</div>
           </div>
         </div>
       </div>

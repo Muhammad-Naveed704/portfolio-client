@@ -7,14 +7,11 @@ import HireMe from '@/components/HireMe';
 import Testimonials from '@/components/Testimonials';
 import CTAEmail from '@/components/CTAEmail';
 import BlogPosts from '@/components/BlogPosts';
-import ProjectCard from '@/components/ProjectCard';
-import PortfolioShowcase from '@/components/PortfolioShowcase';
 import GithubShowcase from '@/components/GithubShowcase';
+import FeaturedProjects from '@/components/FeaturedProjects';
 import { fetchProjects, Project } from '@/lib/api';
 import { GetServerSideProps } from 'next';
-import Link from 'next/link';
 import Services from '@/components/Services';
-import ProjectsPage from './projects';
 
 type Props = { featured: Project[]; allProjects: Project[] };
 
@@ -37,27 +34,9 @@ export default function Home({ featured, allProjects }: Props) {
   return (
     <Layout title="Home">
       <Hero />
-      <Services />
-      <About />
-      {/* <ProjectsPage /> */}
-      <PortfolioShowcase projects={allProjects} />
-      <section className="container-responsive py-16" id="projects">
-        <div className="flex items-end justify-between">
-          <h2 className="text-2xl font-semibold">Featured Projects</h2>
-          <Link href="/projects" className="text-brand text-sm hover:underline">
-            View all
-          </Link>
-        </div>
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featured.length === 0 ? (
-            <p className="text-gray-600 dark:text-gray-300">No featured projects available.</p>
-          ) : (
-            featured.map((p) => (
-              <ProjectCard key={p.slug} project={p} />
-            ))
-          )}
-        </div>
-      </section>
+      {/* <Services /> */}
+      {/* <About /> */}
+      <FeaturedProjects projects={featured} />
       <Skills />
       <Experience />
       <HireMe />
