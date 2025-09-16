@@ -4,6 +4,8 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { assetUrl } from '@/lib/url';
 import Image from 'next/image';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 type Props = { projects: Project[]; tag?: string };
 
@@ -51,98 +53,192 @@ export default function ProjectsPage({ projects, tag }: Props) {
           </div>
         ) : (
           <div className="space-y-8">
-            {projects.map((project) => (
-              <div key={project.slug} className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
-                <div className="md:flex">
-                  {(project.gallery?.[0] || project.image) && (
-                    <div className="md:w-1/3">
-                      <div className="relative h-64 md:h-full">
-                        <Image
-                          src={assetUrl(project.gallery?.[0] || project.image!)}
-                          alt={project.title}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, 33vw"
-                        />
-                      </div>
-                    </div>
-                  )}
-                  <div className={`p-6 ${(project.gallery?.[0] || project.image) ? 'md:w-2/3' : 'w-full'}`}>
-                    <div className="flex items-start justify-between mb-3">
-                      <h2 className="text-2xl font-bold">{project.title}</h2>
-                      {project.featured && (
-                        <span className="px-3 py-1 rounded-full bg-brand/10 text-brand text-sm font-medium">
-                          Featured
-                        </span>
-                      )}
-                    </div>
-                    
-                    <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-                      {project.longDescription || project.description}
-                    </p>
-
-                    {project.techStack && project.techStack.length > 0 && (
-                      <div className="mb-4">
-                        <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Tech Stack:</h3>
-                        <div className="flex flex-wrap gap-2">
-                          {project.techStack.map((tech) => (
-                            <span 
-                              key={tech} 
-                              className="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-sm"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {project.tags && project.tags.length > 0 && (
-                      <div className="mb-4">
-                        <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Tags:</h3>
-                        <div className="flex flex-wrap gap-2">
-                          {project.tags.map((tag) => (
-                            <span 
-                              key={tag} 
-                              className="px-2 py-1 rounded bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    <div className="flex gap-3 pt-4">
-                      {project.liveUrl && (
-                        <a 
-                          href={project.liveUrl} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="px-6 py-2 rounded-full bg-brand text-white hover:bg-brand/90 transition-colors"
-                        >
-                          View Live ↗
-                        </a>
-                      )}
-                      {project.githubUrl && (
-                        <a 
-                          href={project.githubUrl} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="px-6 py-2 rounded-full border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                        >
-                          GitHub ↗
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
+            {projects.map((project, index) => (
+              <ProjectCard key={project.slug} project={project} index={index} />
             ))}
           </div>
         )}
       </section>
     </Layout>
+  );
+}
+
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  // Use gallery images if available, otherwise fallback to main image
+  const images = project.gallery && project.gallery.length > 0 
+    ? project.gallery 
+    : project.image 
+    ? [project.image] 
+    : [];
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden hover:shadow-xl transition-shadow duration-300"
+    >
+      <div className="md:flex">
+        {images.length > 0 && (
+          <div className="md:w-1/3 relative group">
+            <div className="relative h-64 md:h-80 overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentImageIndex}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="relative w-full h-full"
+                >
+                  <Image
+                    src={assetUrl(images[currentImageIndex])}
+                    alt={project.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Image Navigation - only show if more than 1 image */}
+              {images.length > 1 && (
+                <>
+                  <button
+                    onClick={prevImage}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/80 flex items-center justify-center"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={nextImage}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/80 flex items-center justify-center"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+
+                  {/* Image Indicators */}
+                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                    {images.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setCurrentImageIndex(idx)}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                          idx === currentImageIndex 
+                            ? 'bg-brand w-6' 
+                            : 'bg-white/60 hover:bg-white/90'
+                        }`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Image Counter */}
+                  <div className="absolute top-3 right-3 px-2 py-1 rounded-full bg-black/60 text-white text-xs">
+                    {currentImageIndex + 1} / {images.length}
+                  </div>
+                </>
+              )}
+
+              {/* Featured Badge */}
+              {project.featured && (
+                <div className="absolute top-3 left-3">
+                  <span className="px-3 py-1 rounded-full bg-brand text-white text-sm font-medium shadow-lg">
+                    Featured
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        
+        <div className={`p-6 ${images.length > 0 ? 'md:w-2/3' : 'w-full'}`}>
+          <div className="flex items-start justify-between mb-3">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              {project.title}
+            </h2>
+            {!images.length && project.featured && (
+              <span className="px-3 py-1 rounded-full bg-brand/10 text-brand text-sm font-medium">
+                Featured
+              </span>
+            )}
+          </div>
+          
+          <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+            {project.longDescription || project.description}
+          </p>
+
+          {project.techStack && project.techStack.length > 0 && (
+            <div className="mb-4">
+              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Tech Stack:</h3>
+              <div className="flex flex-wrap gap-2">
+                {project.techStack.map((tech) => (
+                  <span 
+                    key={tech} 
+                    className="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-sm hover:bg-brand/10 hover:text-brand transition-colors duration-300"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {project.tags && project.tags.length > 0 && (
+            <div className="mb-4">
+              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Tags:</h3>
+              <div className="flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <span 
+                    key={tag} 
+                    className="px-2 py-1 rounded bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="flex gap-3 pt-4">
+            {project.liveUrl && (
+              <a 
+                href={project.liveUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="px-6 py-2 rounded-full bg-brand text-white hover:bg-brand/90 hover:shadow-lg transition-all duration-300"
+              >
+                View Live ↗
+              </a>
+            )}
+            {project.githubUrl && (
+              <a 
+                href={project.githubUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="px-6 py-2 rounded-full border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300"
+              >
+                GitHub ↗
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </motion.div>
   );
 }
 
