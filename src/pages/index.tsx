@@ -11,7 +11,6 @@ import GithubShowcase from '@/components/GithubShowcase';
 import FeaturedProjects from '@/components/FeaturedProjects';
 import { fetchProjects, Project } from '@/lib/api';
 import { GetServerSideProps } from 'next';
-import Services from '@/components/Services';
 
 type Props = { featured: Project[]; allProjects: Project[] };
 
@@ -34,14 +33,13 @@ export default function Home({ featured, allProjects }: Props) {
   return (
     <Layout title="Home">
       <Hero />
-      {/* <Services /> */}
       {/* <About /> */}
       <FeaturedProjects projects={featured} />
       <Skills />
       <Experience />
       <HireMe />
       <Testimonials />
-      <CTAEmail />
+      {/* <CTAEmail /> */}
       <BlogPosts />
       <GithubShowcase />
     </Layout>

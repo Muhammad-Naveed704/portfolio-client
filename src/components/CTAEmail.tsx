@@ -16,7 +16,7 @@ export default function CTAEmail() {
           <span>✅ Certified Product Designer</span>
         </div>
       </div>
-      <div className="mt-10">
+      {/* <div className="mt-10">
         <div className="bg-brand text-white rounded-t-3xl p-3">
           <div className="marquee-container">
             <div className="marquee-track">
@@ -25,7 +25,7 @@ export default function CTAEmail() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }
