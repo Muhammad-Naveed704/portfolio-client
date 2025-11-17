@@ -56,6 +56,7 @@ export type Experience = {
   location?: string;
   website?: string;
   order?: number;
+  logo?: string;
 };
 
 export async function fetchExperience() {

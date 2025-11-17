@@ -3,7 +3,7 @@ import { Experience as Exp, fetchExperience } from "@/lib/api";
 import { motion } from "framer-motion";
 import { assetUrl } from "@/lib/url";
 import Image from "next/image";
-import { log } from "console";
+
 
 const base = process.env.NEXT_PUBLIC_API_BASE
 
