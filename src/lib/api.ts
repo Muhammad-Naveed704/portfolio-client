@@ -155,6 +155,7 @@ export type GitHubRepo = {
   forks_count: number;
   language: string | null;
   updated_at: string;
+  fork: boolean;
 };
 
 export async function fetchGithubRepos(username: string, limit = 6) {
