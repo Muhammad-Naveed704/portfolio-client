@@ -4,7 +4,7 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { assetUrl } from '@/lib/url';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 type Props = { projects: Project[]; tag?: string };
@@ -22,6 +22,27 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ query }) =
 export default function ProjectsPage({ projects, tag }: Props) {
   const router = useRouter();
   const setTag = (t?: string) => router.push({ pathname: '/projects', query: t ? { tag: t } : {} });
+  // Client-side fallback: if server-side fetch returned empty, try fetching from client
+  const [clientProjects, setClientProjects] = useState<Project[] | null>(projects.length ? projects : null);
+  useEffect(() => {
+    let mounted = true;
+    async function load() {
+      if (clientProjects === null) {
+        try {
+          const fetched = await fetchProjects({ tag });
+          if (!mounted) return;
+          setClientProjects(fetched);
+        } catch (e) {
+          // swallow — UI will show no projects
+          // eslint-disable-next-line no-console
+          console.error('[projects page] client fallback fetch failed', e);
+        }
+      }
+    }
+    load();
+    return () => { mounted = false; };
+  }, [tag, clientProjects]);
+  const effectiveProjects = clientProjects ?? projects;
   const tags = Array.from(new Set(projects.flatMap((p) => p.tags || [])));
   
   return (
@@ -47,13 +68,13 @@ export default function ProjectsPage({ projects, tag }: Props) {
           ))}
         </div>
 
-        {projects.length === 0 ? (
+        {effectiveProjects.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-gray-600 dark:text-gray-300">No projects found.</p>
           </div>
         ) : (
           <div className="space-y-8">
-            {projects.map((project, index) => (
+            {effectiveProjects.map((project, index) => (
               <ProjectCard key={project.slug} project={project} index={index} />
             ))}
           </div>

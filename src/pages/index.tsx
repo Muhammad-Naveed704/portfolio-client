@@ -10,6 +10,7 @@ import BlogPosts from '@/components/BlogPosts';
 import GithubShowcase from '@/components/GithubShowcase';
 import FeaturedProjects from '@/components/FeaturedProjects';
 import { fetchProjects, Project } from '@/lib/api';
+import { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 
 type Props = { featured: Project[]; allProjects: Project[] };
@@ -28,13 +29,39 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 };
 
 export default function Home({ featured, allProjects }: Props) {
-  console.log("FEATURED PROJECTS in Home:", featured);
-  console.log("ALL PROJECTS in Home:", allProjects);
+  const [clientFeatured, setClientFeatured] = useState<Project[] | null>(featured.length ? featured : null);
+  const [clientAll, setClientAll] = useState<Project[] | null>(allProjects.length ? allProjects : null);
+
+  useEffect(() => {
+    let mounted = true;
+    async function load() {
+      try {
+        if (clientFeatured === null) {
+          const f = await fetchProjects({ featured: true });
+          if (!mounted) return;
+          setClientFeatured(f);
+        }
+        if (clientAll === null) {
+          const a = await fetchProjects({});
+          if (!mounted) return;
+          setClientAll(a);
+        }
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error('[home] client fallback fetch failed', err);
+      }
+    }
+    load();
+    return () => { mounted = false; };
+  }, [clientFeatured, clientAll]);
+
+  const effectiveFeatured = clientFeatured ?? featured;
+  const effectiveAll = clientAll ?? allProjects;
   return (
     <Layout title="Home">
       <Hero />
       {/* <About /> */}
-      <FeaturedProjects projects={featured} />
+      <FeaturedProjects projects={effectiveFeatured} />
       <Skills />
       <Experience />
       <HireMe />
