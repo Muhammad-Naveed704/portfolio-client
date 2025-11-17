@@ -71,12 +71,17 @@ export default function ChatPage() {
       return data?.messages || [];
     },
     enabled: mounted && !isAuthenticated, // 🔥 updated
-    onSuccess: () => {
-      const gid = localStorage.getItem('guestUserId');
-      if (gid) joinUserRoom(gid);
-    }
+    // onSuccess: () => {
+    //   const gid = localStorage.getItem('guestUserId');
+    //   if (gid) joinUserRoom(gid);
+    // }
   });
-
+  useEffect(() => {
+  if (anonHistoryQ.isSuccess) {
+    const gid = localStorage.getItem('guestUserId');
+    if (gid) joinUserRoom(gid);
+  }
+}, [anonHistoryQ.isSuccess]);
   const sidebar = useMemo(() => convQ.data || [], [convQ.data]);
 
   // Auto-select first conversation when authenticated and list loads
