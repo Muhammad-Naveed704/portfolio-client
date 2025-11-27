@@ -1,27 +1,34 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-   images: {
+  images: {
     remotePatterns: [
       {
         protocol: 'http',
         hostname: 'localhost',
-        port: '8000',
+        port: '3000',
         pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: 'example.com',
+        hostname: 'api.xws.digital/api',
         port: '',
-        pathname: '/**', // allow all images from example.com
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.xws.digital',
+        port: '',
+        pathname: '/**',
       },
     ],
   },
   experimental: {
-    optimizePackageImports: ['framer-motion']
-  }
+    optimizePackageImports: ['framer-motion'],
+  },
 };
 
 export default nextConfig;
+
 
 
