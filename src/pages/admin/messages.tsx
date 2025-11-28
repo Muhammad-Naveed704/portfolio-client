@@ -14,7 +14,7 @@ export default function AdminMessages() {
   const [messages, setMessages] = useState<Message[]>([]);
   useEffect(() => {
     async function load() {
-      const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000/api';
+      const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:3000/api';
       const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
       if (!token) {
         toast.error('Please login to view messages');

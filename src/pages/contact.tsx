@@ -69,9 +69,9 @@ export default function ContactPage() {
                 <span className="text-purple-600 font-semibold">CONTACT US</span>
               </div>
               <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-2">
-                <li>📍 545 Movie Island, IL 9891</li>
-                <li>📞 +2034 4040 3030</li>
-                <li>✉ hello@gmail.com</li>
+                <li>📍 karachi</li>
+                <li>📞 +92 3442862704</li>
+                <li>✉ mnaveed2862@gmail.com</li>
               </ul>
               <div className="flex gap-3 text-purple-600">
                 <a href="#" aria-label="facebook">ⓕ</a>
