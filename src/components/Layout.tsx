@@ -177,7 +177,7 @@ export default function Layout({ title, children }: Props) {
                 href="/contact" 
                 className="hidden sm:inline-block bg-brand hover:bg-brand/90 text-white px-6 py-3 rounded-full text-sm font-medium transition-colors duration-300"
               >
-                Hire me ↗
+                Hire me 
               </Link>
             </div>
             
@@ -229,10 +229,10 @@ export default function Layout({ title, children }: Props) {
               <div>
                 <h4 className="text-white font-semibold mb-3">Contact</h4>
                 <ul className="space-y-2 text-white/70">
-                  <li>+92 777844366</li>
+                  <li>+92 3442862704</li>
                   <li>
-                    <a href="mailto:naveed@example.com" className="hover:text-brand transition-colors">
-                      naveed@example.com
+                    <a href="mailto:mnaveed2862@example.com" className="hover:text-brand transition-colors">
+                      mnaveed2862@example.com
                     </a>
                   </li>
                   <li>
@@ -269,7 +269,7 @@ export default function Layout({ title, children }: Props) {
             <hr className="border-white/10 my-8" />
             
             <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-white/70 gap-3">
-              <p>Copyright© {new Date().getFullYear()} Muhammad Naveed. All Rights Reserved.</p>
+              <p>Copyright© {new Date().getFullYear()} XWS Solutions All Rights Reserved.</p>
               <div className="flex gap-4">
                 <a href="#" className="hover:text-brand transition-colors">Privacy Policy</a>
                 <a href="#" className="hover:text-brand transition-colors">Terms of Service</a>

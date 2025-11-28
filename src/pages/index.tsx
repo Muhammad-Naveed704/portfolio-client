@@ -59,12 +59,12 @@ export default function Home({ featured, allProjects }: Props) {
   const effectiveAll = clientAll ?? allProjects;
   return (
     <Layout title="Home">
-      <Hero />
+      {/*<Hero /> */}
       {/* <About /> */}
       <FeaturedProjects projects={effectiveFeatured} />
       <Skills />
-      <Experience />
-      <HireMe />
+      {/* <Experience />*/}
+     {/*  <HireMe />*/}
       <Testimonials />
       {/* <CTAEmail /> */}
       <BlogPosts />
