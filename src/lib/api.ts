@@ -187,4 +187,127 @@ export async function getAnonymousHistory() {
   return await res.json();
 }
 
+// Get online users (for guest chat)
+export type OnlineUser = {
+  userId: string;
+  name: string;
+  isOnline: boolean;
+  lastSeen?: string;
+  visitorKey?: string;
+};
+
+export async function getOnlineUsers() {
+  try {
+    const visitorKey = typeof window !== 'undefined' ? localStorage.getItem('visitorKey') : null;
+    const url = new URL(`${API_BASE}/chat/users/online`);
+    if (visitorKey) url.searchParams.set('visitorKey', visitorKey);
+    const res = await fetch(url.toString());
+    if (!res.ok) return []; // Return empty array if endpoint doesn't exist
+    return (await res.json()) as OnlineUser[];
+  } catch {
+    return []; // Return empty array on error
+  }
+}
+
+// Send message to another user (guest to guest)
+export async function sendGuestMessage(receiverId: string, message: string) {
+  try {
+    const visitorKey = typeof window !== 'undefined' ? localStorage.getItem('visitorKey') : null;
+    const res = await fetch(`${API_BASE}/chat/guest/send`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ receiverId, message, visitorKey }),
+    });
+    if (!res.ok) {
+      // Fallback to anonymous message if guest endpoint doesn't exist
+      return sendAnonymousMessage(localStorage.getItem('userName') || 'Guest', message);
+    }
+    return (await res.json()) as ChatMessage;
+  } catch {
+    // Fallback to anonymous message
+    return sendAnonymousMessage(localStorage.getItem('userName') || 'Guest', message);
+  }
+}
+
+// Get messages with a specific user (guest mode)
+export async function getGuestMessages(userId: string) {
+  try {
+    const visitorKey = typeof window !== 'undefined' ? localStorage.getItem('visitorKey') : null;
+    const url = new URL(`${API_BASE}/chat/guest/messages/${userId}`);
+    if (visitorKey) url.searchParams.set('visitorKey', visitorKey);
+    const res = await fetch(url.toString());
+    if (!res.ok) {
+      // Fallback to anonymous history
+      const data = await getAnonymousHistory();
+      return data?.messages || [];
+    }
+    return (await res.json()) as ChatMessage[];
+  } catch {
+    // Fallback to anonymous history
+    const data = await getAnonymousHistory();
+    return data?.messages || [];
+  }
+}
+
+// Initialize guest user (get or create user ID based on fingerprint/IP)
+export async function initializeGuestUser(name?: string) {
+  try {
+    const visitorKey = typeof window !== 'undefined' ? localStorage.getItem('visitorKey') : null;
+    const res = await fetch(`${API_BASE}/chat/guest/init`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name || 'Guest', visitorKey }),
+    });
+    if (!res.ok) {
+      // Fallback: create local user ID
+      return createLocalGuestUser(name);
+    }
+    const data = await res.json();
+    if (typeof window !== 'undefined') {
+      if (data?.visitorKey) localStorage.setItem('visitorKey', data.visitorKey);
+      if (data?.userId) localStorage.setItem('guestUserId', data.userId);
+      if (data?.name) localStorage.setItem('userName', data.name);
+    }
+    return data;
+  } catch {
+    // Fallback: create local user ID
+    return createLocalGuestUser(name);
+  }
+}
+
+// Helper to create local guest user
+function createLocalGuestUser(name?: string) {
+  if (typeof window === 'undefined') {
+    return { userId: '', name: name || 'Guest' };
+  }
+  
+  let userId = localStorage.getItem('guestUserId');
+  let userName = localStorage.getItem('userName') || name || `User${Math.floor(Math.random() * 10000)}`;
+  
+  if (!userId) {
+    // Create a unique ID based on browser fingerprint
+    const fingerprint = [
+      navigator.userAgent,
+      navigator.language,
+      screen.width,
+      screen.height,
+      new Date().getTimezoneOffset(),
+    ].join('|');
+    
+    // Simple hash
+    let hash = 0;
+    for (let i = 0; i < fingerprint.length; i++) {
+      const char = fingerprint.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32bit integer
+    }
+    
+    userId = `guest_${Math.abs(hash)}_${Date.now()}`;
+    localStorage.setItem('guestUserId', userId);
+    localStorage.setItem('userName', userName);
+  }
+  
+  return { userId, name: userName };
+}
+
 
