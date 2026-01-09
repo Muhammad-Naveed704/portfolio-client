@@ -4,7 +4,7 @@ let socket: Socket | null = null;
 
 export function getSocket() {
   if (socket) return socket;
-  const base = process.env.NEXT_PUBLIC_API_BASE?.replace('/api', '') || 'http://localhost:4000';
+  const base = process.env.NEXT_PUBLIC_API_BASE?.replace('/api', '') || 'http://localhost:3000';
   socket = io(base, { transports: ['websocket'] });
   return socket;
 }

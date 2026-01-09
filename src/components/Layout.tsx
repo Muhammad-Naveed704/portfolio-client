@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import ThemeToggle from './ThemeToggle';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -13,18 +13,30 @@ type Props = {
 export default function Layout({ title, children }: Props) {
   const { token } = useAuthToken();
   const router = useRouter();
-  const siteTitle = title ? `${title} | Muhammad Naveed` : 'Muhammad Naveed | MERN Stack Developer';
+  const siteTitle = title ? `${title} | Xws Solution` : 'Xws Solution | Digital Engineering Studio';
   const [open, setOpen] = useState(false);
 
   // Navigation items
   const navItems = [
     { href: '/', label: 'Home', isExternal: false },
-    { href: '/services', label: 'Service', isExternal: false },
-    { href: '/#experience', label: 'Resume', isExternal: false },
-    { href: '/projects', label: 'Project', isExternal: false },
+    { href: '/services', label: 'Services', isExternal: false },
+    { href: '/ai', label: 'AI Studio', isExternal: false },
+    { href: '/solutions', label: 'Solutions', isExternal: false },
+    { href: '/projects', label: 'Projects', isExternal: false },
+    { href: '/company', label: 'Company', isExternal: false },
+    { href: '/insights', label: 'Insights', isExternal: false },
+    { href: '/career', label: 'Career', isExternal: false },
     { href: '/contact', label: 'Contact', isExternal: false },
     { href: '/chat', label: 'Chat', isExternal: false },
   ];
+
+  useEffect(() => {
+    navItems
+      .filter((item) => !item.href.startsWith('/#') && !item.isExternal)
+      .forEach((item) => {
+        router.prefetch(item.href).catch(() => {});
+      });
+  }, [router]);
 
   // Check if a nav item is active
   const isActiveRoute = (href: string) => {
@@ -80,31 +92,46 @@ export default function Layout({ title, children }: Props) {
             <div className="flex items-center justify-between">
               {/* Logo */}
               <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-brand to-brand/80 text-white flex items-center justify-center font-bold">
-                  MN
+                <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-brand to-brand/70 text-white flex items-center justify-center font-semibold tracking-wide shadow-md">
+                  XS
                 </div>
                 <Link href="/" className="font-semibold text-gray-900 dark:text-white hover:text-brand transition-colors">
-                  Muhammad Naveed
+                  Xws Solution
                 </Link>
               </div>
 
               {/* Desktop Navigation */}
               <div className="hidden lg:flex items-center gap-4">
                 <nav className="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 rounded-full p-1">
-                  {navItems.map((item) => (
-                    <button
-                      key={item.href}
-                      onClick={() => handleNavigation(item.href, item.isExternal)}
-                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                        isActiveRoute(item.href)
-                          ? 'bg-brand text-white shadow-lg'
-                          : 'text-gray-600 dark:text-gray-300 hover:text-brand hover:bg-white dark:hover:bg-gray-700'
-                      }`}
-                    >
-                      {item.label}
-                    </button>
-                  ))}
+                  {navItems.map((item) => {
+                    const isHashLink = item.href.startsWith('/#');
+                    const active = isActiveRoute(item.href);
+                    const classes = `px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                      active
+                        ? 'bg-brand text-white shadow-lg'
+                        : 'text-gray-600 dark:text-gray-300 hover:text-brand hover:bg-white dark:hover:bg-gray-700'
+                    }`;
+
+                    if (isHashLink) {
+                      return (
+                        <button
+                          key={item.href}
+                          onClick={() => handleNavigation(item.href, item.isExternal)}
+                          className={classes}
+                        >
+                          {item.label}
+                        </button>
+                      );
+                    }
+
+                    return (
+                      <Link key={item.href} href={item.href} className={classes} prefetch>
+                        {item.label}
+                      </Link>
+                    );
+                  })}
                 </nav>
+               
                 <ThemeToggle />
               </div>
 
@@ -129,19 +156,45 @@ export default function Layout({ title, children }: Props) {
             {open && (
               <div className="lg:hidden mt-4 pb-4 border-t border-gray-200 dark:border-gray-800 pt-4">
                 <nav className="flex flex-col gap-2">
-                  {navItems.map((item) => (
-                    <button
-                      key={item.href}
-                      onClick={() => handleNavigation(item.href, item.isExternal)}
-                      className={`text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
-                        isActiveRoute(item.href)
-                          ? 'bg-brand text-white'
-                          : 'text-gray-600 dark:text-gray-300 hover:text-brand hover:bg-gray-100 dark:hover:bg-gray-800'
-                      }`}
-                    >
-                      {item.label}
-                    </button>
-                  ))}
+                  {navItems.map((item) => {
+                    const isHashLink = item.href.startsWith('/#');
+                    const active = isActiveRoute(item.href);
+                    const classes = `text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
+                      active
+                        ? 'bg-brand text-white'
+                        : 'text-gray-600 dark:text-gray-300 hover:text-brand hover:bg-gray-100 dark:hover:bg-gray-800'
+                    }`;
+
+                    if (isHashLink) {
+                      return (
+                        <button
+                          key={item.href}
+                          onClick={() => handleNavigation(item.href, item.isExternal)}
+                          className={classes}
+                        >
+                          {item.label}
+                        </button>
+                      );
+                    }
+
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className={classes}
+                        onClick={() => setOpen(false)}
+                        prefetch
+                      >
+                        {item.label}
+                      </Link>
+                    );
+                  })}
+                  <Link
+                    href="/contact"
+                    className="text-center mt-3 px-4 py-3 rounded-lg bg-gradient-to-r from-brand to-brand/80 text-white font-semibold"
+                  >
+                    Start a Project
+                  </Link>
                   
                   {/* Admin Links for Mobile */}
                   {token && (
@@ -169,43 +222,50 @@ export default function Layout({ title, children }: Props) {
         
         <main className="flex-1">{children}</main>
         
-        <footer className="mt-16 bg-gray-900 text-white">
-          <div className="container-responsive py-10">
-            <div className="flex items-center justify-between mb-8">
-              <h3 className="text-2xl sm:text-3xl font-semibold">Let's Connect</h3>
+        <footer className="mt-16 bg-gray-950 text-white relative overflow-hidden">
+          <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_top,_rgba(14,165,233,.25),_transparent_55%)] pointer-events-none" />
+          <div className="container-responsive py-16 relative">
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-12">
+              <div>
+                <p className="uppercase tracking-[0.4em] text-xs text-white/60 mb-2">Xws Solution</p>
+                <h3 className="text-3xl sm:text-4xl font-semibold leading-tight">
+                  Building intelligent products<br className="hidden sm:block" /> that scale from prototype to production.
+                </h3>
+              </div>
               <Link 
                 href="/contact" 
-                className="hidden sm:inline-block bg-brand hover:bg-brand/90 text-white px-6 py-3 rounded-full text-sm font-medium transition-colors duration-300"
+                className="inline-flex items-center gap-2 bg-brand hover:bg-brand/90 text-white px-8 py-3 rounded-full text-sm font-medium transition-all duration-300 shadow-[0_10px_30px_rgba(14,165,233,.35)]"
               >
-                Hire me ↗
+                Book a Strategy Call
+                <span className="text-lg">↗</span>
               </Link>
             </div>
             
-            <hr className="border-white/10 mb-8" />
+            <hr className="border-white/10 mb-10" />
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-sm">
               <div>
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand to-brand/80 text-white flex items-center justify-center font-bold">
-                    MN
+                <div className="flex items-center gap-2 mb-5">
+                  <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-brand to-brand/60 text-white flex items-center justify-center font-semibold">
+                    XS
                   </div>
-                  <span className="font-medium">Muhammad Naveed</span>
+                  <span className="font-medium">Xws Solution</span>
                 </div>
                 <p className="text-white/70 mb-4 leading-relaxed">
-                  MERN Stack Developer passionate about creating modern web applications with clean code and exceptional user experiences.
+                  Full-spectrum digital engineering team delivering AI, product, and platform solutions for companies that ship fast and operate at scale.
                 </p>
                 <div className="flex gap-3 text-white/80">
                   <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand transition-colors" aria-label="Twitter">
                     🐦
                   </a>
-                  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand transition-colors" aria-label="Facebook">
-                    📘
+                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand transition-colors" aria-label="LinkedIn">
+                    💼
                   </a>
-                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand transition-colors" aria-label="Instagram">
-                    📷
-                  </a>
-                  <a href="https://github.com/Muhammad-Naveed704" target="_blank" rel="noopener noreferrer" className="hover:text-brand transition-colors" aria-label="GitHub">
+                  <a href="https://github.com/Xws-Solution" target="_blank" rel="noopener noreferrer" className="hover:text-brand transition-colors" aria-label="GitHub">
                     💻
+                  </a>
+                  <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand transition-colors" aria-label="Dribbble">
+                    🎯
                   </a>
                 </div>
               </div>
@@ -213,7 +273,7 @@ export default function Layout({ title, children }: Props) {
               <div>
                 <h4 className="text-white font-semibold mb-3">Navigation</h4>
                 <ul className="space-y-2">
-                  {navItems.slice(0, 5).map((item) => (
+                  {navItems.map((item) => (
                     <li key={item.href}>
                       <button
                         onClick={() => handleNavigation(item.href, item.isExternal)}
@@ -227,52 +287,43 @@ export default function Layout({ title, children }: Props) {
               </div>
               
               <div>
-                <h4 className="text-white font-semibold mb-3">Contact</h4>
+                <h4 className="text-white font-semibold mb-3">Studio</h4>
                 <ul className="space-y-2 text-white/70">
-                  <li>+92 777844366</li>
-                  <li>
-                    <a href="mailto:naveed@example.com" className="hover:text-brand transition-colors">
-                      naveed@example.com
-                    </a>
-                  </li>
-                  <li>
-                    <a 
-                      href="https://portfolio-taupe-eta-78.vercel.app/" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="hover:text-brand transition-colors"
-                    >
-                      portfolio.vercel.app
-                    </a>
-                  </li>
+                  <li>AI & Robotics Engineering</li>
+                  <li>Product & Platform Delivery</li>
+                  <li>CI/CD & Production Ops</li>
+                  <li>Email & Communication Systems</li>
                 </ul>
               </div>
               
               <div>
-                <h4 className="text-white font-semibold mb-3">Stay Updated</h4>
-                <form className="flex bg-white rounded-full overflow-hidden">
-                  <input 
-                    className="flex-1 px-4 py-2 text-gray-900 outline-none text-sm" 
-                    placeholder="Email Address"
-                    type="email"
-                  />
-                  <button 
-                    type="submit"
-                    className="bg-brand hover:bg-brand/90 text-white px-4 py-2 transition-colors duration-300"
-                  >
-                    ↗
-                  </button>
-                </form>
+                <h4 className="text-white font-semibold mb-3">Contact</h4>
+                <ul className="space-y-2 text-white/70">
+                  <li>hello@xwssolution.com</li>
+                  <li>+92 344 286 2704</li>
+                  <li>Karachi · Dubai · Remote</li>
+                </ul>
               </div>
             </div>
             
-            <hr className="border-white/10 my-8" />
+            <hr className="border-white/10 my-10" />
             
-            <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-white/70 gap-3">
-              <p>Copyright© {new Date().getFullYear()} Muhammad Naveed. All Rights Reserved.</p>
-              <div className="flex gap-4">
-                <a href="#" className="hover:text-brand transition-colors">Privacy Policy</a>
-                <a href="#" className="hover:text-brand transition-colors">Terms of Service</a>
+            <div className="flex flex-col lg:flex-row gap-6 lg:gap-0 items-start lg:items-center justify-between text-xs text-white/70">
+              <p>© {new Date().getFullYear()} Xws Solution. Engineered with care for production-grade launches.</p>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
+                <button
+                  onClick={() => handleNavigation('/privacy', false)}
+                  className="hover:text-brand transition-colors text-left"
+                >
+                  Privacy Policy
+                </button>
+                <button
+                  onClick={() => handleNavigation('/terms', false)}
+                  className="hover:text-brand transition-colors text-left"
+                >
+                  Terms of Service
+                </button>
+                <span className="text-white/60">Security & Compliance · SOC2-ready</span>
               </div>
             </div>
           </div>

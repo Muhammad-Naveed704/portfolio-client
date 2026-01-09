@@ -58,7 +58,7 @@ export default function FeaturedProjects({ projects }: Props) {
       <div className="text-center">
         <Link 
           href="/projects"
-          className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-gradient-to-r from-brand to-brand/80 text-white font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300"
+          className="inline-flex items-center gap-2 px-8 py-3 rounded-tr-3xl rounded-bl-3xl  bg-brand text-white font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300"
         >
           View All Projects
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
