@@ -68,10 +68,10 @@ export default function Testimonials() {
           <Quote className="w-4 h-4" />
           Testimonials
         </div>
-        <h2 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+        <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-white bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
           What <span className="text-brand">Clients Say</span>
         </h2>
-        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        <p className="text-lg text-gray-300 dark:text-gray-300 max-w-2xl mx-auto">
           Don't just take my word for it. Here's what industry professionals say about working with me.
         </p>
       </motion.div>
