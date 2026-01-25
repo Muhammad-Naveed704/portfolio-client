@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function HireMe() {
   return (
@@ -28,7 +29,7 @@ export default function HireMe() {
                 <p className="text-xs text-gray-500">Project Completed</p>
               </div>
             </div>
-            <a href="/contact" className="mt-6 inline-block px-6 py-2.5 rounded-full border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800">Hire me</a>
+            <Link href="/contact" className="mt-6 inline-block px-6 py-2.5 rounded-full border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800">Hire me</Link>
           </div>
         </div>
       </div>

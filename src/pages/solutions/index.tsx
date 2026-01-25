@@ -1,5 +1,6 @@
 import Layout from '@/components/Layout';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 const solutionStreams = [
   {
@@ -104,12 +105,12 @@ export default function SolutionsPage() {
               Tell us about your roadmap and we’ll outline the team, timeline, and pricing in under a week.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <a href="/contact" className="px-8 py-3 rounded-full bg-brand text-white font-semibold shadow-lg">
+              <Link href="/contact" className="px-8 py-3 rounded-full bg-brand text-white font-semibold shadow-lg">
                 Start discovery
-              </a>
-              <a href="/services" className="px-8 py-3 rounded-full border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white">
+              </Link>
+              <Link href="/services" className="px-8 py-3 rounded-full border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white">
                 View service catalog
-              </a>
+              </Link>
             </div>
           </div>
         </section>

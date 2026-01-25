@@ -38,10 +38,10 @@ const milestones = [
 ];
 
 const stats = [
-  { value: '70+', label: 'Projects Delivered' },
+  { value: '10+', label: 'Projects Delivered' },
   { value: '12+', label: 'Expert Team Members' },
-  { value: '8+', label: 'Years Experience' },
-  { value: '50+', label: 'Happy Clients' },
+  { value: '3+', label: 'Years Experience' },
+  { value: '6+', label: 'Happy Clients' },
 ];
 
 export default function CompanyPage() {

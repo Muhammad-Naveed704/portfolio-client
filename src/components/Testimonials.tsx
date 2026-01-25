@@ -87,7 +87,7 @@ export default function Testimonials() {
         >
           <div>
             <p className="text-sm uppercase tracking-[0.35em] text-gray-500 dark:text-gray-400 mb-4 font-medium">Delivery playbook</p>
-            <h3 className="text-3xl sm:text-4xl font-bold mb-8 text-gray-900 dark:text-white leading-tight">
+            <h3 className="text-3xl sm:text-4xl font-bold mb-8 text-white dark:text-white leading-tight">
               One accountable partner from strategy to operations.
             </h3>
           </div>
@@ -253,9 +253,9 @@ export default function Testimonials() {
         transition={{ duration: 0.6, delay: 0.3 }}
       >
         {[
-          { value: '50+', label: 'Projects Completed' },
+          { value: '10+', label: 'Projects Completed' },
           { value: '100%', label: 'Client Satisfaction' },
-          { value: '5+', label: 'Years Experience' },
+          { value: '3+', label: 'Years Experience' },
         ].map((stat, idx) => (
           <motion.div
             key={stat.label}

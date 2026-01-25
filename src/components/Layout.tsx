@@ -4,6 +4,7 @@ import ThemeToggle from './ThemeToggle';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useAuthToken } from '@/hooks/useAuth';
+import { Github, Linkedin } from 'lucide-react';
 
 type Props = {
   title?: string;
@@ -255,17 +256,24 @@ export default function Layout({ title, children }: Props) {
                   Full-spectrum digital engineering team delivering AI, product, and platform solutions for companies that ship fast and operate at scale.
                 </p>
                 <div className="flex gap-3 text-white/80">
-                  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand transition-colors" aria-label="Twitter">
-                    🐦
+                 
+                  <a 
+                    href="https://www.linkedin.com/company/team-tech-wave-solution" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-brand hover:text-white flex items-center justify-center transition-all"
+                    aria-label="LinkedIn"
+                  >
+                    <Linkedin className="w-5 h-5" />
                   </a>
-                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand transition-colors" aria-label="LinkedIn">
-                    💼
-                  </a>
-                  <a href="https://github.com/Xws-Solution" target="_blank" rel="noopener noreferrer" className="hover:text-brand transition-colors" aria-label="GitHub">
-                    💻
-                  </a>
-                  <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand transition-colors" aria-label="Dribbble">
-                    🎯
+                  <a 
+                    href="https://github.com/Muhammad-Naveed704" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-brand hover:text-white flex items-center justify-center transition-all"
+                    aria-label="GitHub"
+                  >
+                    <Github className="w-5 h-5" />
                   </a>
                 </div>
               </div>
@@ -299,9 +307,9 @@ export default function Layout({ title, children }: Props) {
               <div>
                 <h4 className="text-white font-semibold mb-3">Contact</h4>
                 <ul className="space-y-2 text-white/70">
-                  <li>hello@xwssolution.com</li>
-                  <li>+92 344 286 2704</li>
-                  <li>Karachi · Dubai · Remote</li>
+                  <li>mnaveed2862@gmail.com</li>
+                  <li>+923442862704</li>
+                  <li>Karachi</li>
                 </ul>
               </div>
             </div>

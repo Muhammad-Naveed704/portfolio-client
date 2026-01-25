@@ -46,6 +46,7 @@ export default function ContactPage() {
         <meta name="description" content="Get in touch with Xws Solution. We're here to help with your AI, robotics, and digital engineering needs. Contact us for consultations and project inquiries." />
         <meta name="keywords" content="contact Xws Solution, AI consulting, robotics consulting, digital engineering contact" />
       </Head>
+       
       <Layout title="Contact">
         <section className="container-responsive py-16 sm:py-20" id="contact">
           <div className="text-center mb-12">
@@ -56,6 +57,7 @@ export default function ContactPage() {
             >
               Let's Connect
             </motion.p>
+           
             <motion.h1 
               className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
               initial={{ opacity: 0, y: 20 }}
@@ -169,7 +171,7 @@ export default function ContactPage() {
                     <div>
                       <p className="font-semibold text-gray-900 dark:text-white mb-1">Phone</p>
                       <a href="tel:+923442862704" className="text-brand hover:underline">
-                        +92 344 286 2704
+                        +923442862704
                       </a>
                     </div>
                   </div>
@@ -191,7 +193,7 @@ export default function ContactPage() {
                 <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Follow Us</h3>
                 <div className="flex gap-4">
                   <a 
-                    href="https://linkedin.com" 
+                    href="https://www.linkedin.com/company/team-tech-wave-solution" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-brand hover:text-white flex items-center justify-center transition-all"
@@ -200,7 +202,7 @@ export default function ContactPage() {
                     <Linkedin className="w-5 h-5" />
                   </a>
                   <a 
-                    href="https://github.com/Xws-Solution" 
+                    href="https://github.com/Muhammad-Naveed704" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-brand hover:text-white flex items-center justify-center transition-all"

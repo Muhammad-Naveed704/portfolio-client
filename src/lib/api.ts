@@ -171,6 +171,7 @@ export async function sendAnonymousMessage(name: string, message: string) {
   const res = await fetch(`${API_BASE}/chat/anonymous/send`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, message, visitorKey }) });
   if (!res.ok) throw new Error('Failed to send');
   const data = await res.json();
+  // Backend returns message with visitorKey and guestUserId attached
   if (typeof window !== 'undefined') {
     if (data?.visitorKey) localStorage.setItem('visitorKey', data.visitorKey);
     if (data?.guestUserId) localStorage.setItem('guestUserId', data.guestUserId);
