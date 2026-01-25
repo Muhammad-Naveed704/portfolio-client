@@ -9,6 +9,8 @@ import { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { motion } from 'framer-motion';
 import Head from 'next/head';
+import Link from 'next/link';
+
 
 type Props = { featured: Project[]; allProjects: Project[] };
 
@@ -184,7 +186,7 @@ export default function Home({ featured, allProjects }: Props) {
                 <span className="w-2 h-2 bg-brand rounded-full animate-pulse" />
                 Xws Solution · AI & Robotics Lab
               </motion.p>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent">
+              <h1 className="text-4xl sm:text-4xl lg:text-4xl xl:text-5xl font-bold leading-tight mb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent">
                 From prototype AI demos to{' '}
                 <span className="text-brand bg-gradient-to-r from-brand to-purple-600 bg-clip-text text-transparent">mission-critical intelligence</span>{' '}
                 in production.
@@ -193,24 +195,28 @@ export default function Home({ featured, allProjects }: Props) {
                 Xws Solution builds AI copilots, computer vision systems, and robotics platforms that pass enterprise security reviews and survive real-world adoption. We pair a dedicated applied AI squad with platform engineers so every experiment is production-ready.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                <Link href="/contact" >
                 <motion.a
-                  href="/contact"
+                  
                   className="px-8 py-4 rounded-full bg-gradient-to-r from-brand via-brand to-purple-600 text-white font-semibold hover:shadow-2xl hover:shadow-brand/50 hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                >
+                  >
                   Start a Project
                   <span className="text-lg">→</span>
                 </motion.a>
+                  </Link> 
+                <Link href="/ai">
                 <motion.a
-                  href="/ai"
+                  
                   className="px-8 py-4 rounded-full border-2 border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-medium flex items-center justify-center gap-2"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                >
+                  >
                   Explore AI Studio
                   <span>↗</span>
                 </motion.a>
+                  </Link>
               </div>
               <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-200 dark:border-gray-800">
                 <div>
@@ -291,7 +297,7 @@ export default function Home({ featured, allProjects }: Props) {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <div className="text-5xl font-bold text-brand mb-2">15+</div>
+              <div className="text-5xl font-bold text-brand mb-2">2+</div>
               <div className="text-sm uppercase tracking-wider text-gray-500 dark:text-gray-400 font-medium">Models Orchestrated</div>
             </motion.div>
             <motion.div
@@ -301,7 +307,7 @@ export default function Home({ featured, allProjects }: Props) {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <div className="text-5xl font-bold text-brand mb-2">12</div>
+              <div className="text-5xl font-bold text-brand mb-2">1</div>
               <div className="text-sm uppercase tracking-wider text-gray-500 dark:text-gray-400 font-medium">Robotics Cells Automated</div>
             </motion.div>
             <motion.div
@@ -311,7 +317,7 @@ export default function Home({ featured, allProjects }: Props) {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <div className="text-5xl font-bold text-brand mb-2">30+</div>
+              <div className="text-5xl font-bold text-brand mb-2">10+</div>
               <div className="text-sm uppercase tracking-wider text-gray-500 dark:text-gray-400 font-medium">ML Deployments / Month</div>
             </motion.div>
           </div>
@@ -329,13 +335,14 @@ export default function Home({ featured, allProjects }: Props) {
                 End-to-end delivery from strategy to operations with dedicated teams that own the entire product lifecycle.
               </p>
             </div>
+            <Link href="/services">
             <motion.a 
-              href="/services" 
               className="text-brand font-semibold hover:underline flex items-center gap-2"
               whileHover={{ x: 5 }}
             >
               Explore services →
             </motion.a>
+            </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {capabilities.map((capability, idx) => (
@@ -432,26 +439,12 @@ export default function Home({ featured, allProjects }: Props) {
 
         {/* Delivery playbook & testimonials */}
         <section className="bg-gray-900 text-white py-16">
-          <div className="container-responsive grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div>
-              <p className="text-sm uppercase tracking-[0.35em] text-white/60 mb-4">Delivery playbook</p>
-              <h2 className="text-3xl font-semibold mb-6">One accountable partner from strategy to operations.</h2>
-              <div className="space-y-6">
-                {deliveryPhases.map((phase, index) => (
-                  <div key={phase.label} className="flex gap-4">
-                    <span className="text-brand font-semibold">{(index + 1).toString().padStart(2, '0')}</span>
-                    <div>
-                      <p className="font-semibold">{phase.label}</p>
-                      <p className="text-white/70">{phase.detail}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+          
+           
             <div>
       <Testimonials />
             </div>
-          </div>
+          
         </section>
 
         {/* Team */}
@@ -459,7 +452,7 @@ export default function Home({ featured, allProjects }: Props) {
 
         {/* Insights & OSS */}
         <section className="container-responsive py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-1 gap-12">
             <div className="lg:col-span-2">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-3xl font-semibold">Insights & field notes</h2>

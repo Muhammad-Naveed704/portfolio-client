@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { useState } from 'react';
 
 const automationFeatures = [
@@ -63,7 +64,7 @@ export default function AutomationShowcase() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section className="container-responsive py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
+    <section className="container-responsive py-16 sm:py-20 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 text-white dark:from-gray-900 dark:to-gray-950">
       <motion.div
         className="text-center mb-12"
         initial={{ opacity: 0, y: 30 }}
@@ -198,13 +199,13 @@ export default function AutomationShowcase() {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <a
+        <Link
           href="/contact"
           className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-brand text-white font-semibold hover:bg-brand/90 transition-all duration-300 shadow-lg hover:shadow-xl"
         >
           Discuss Your Automation Needs
           <span className="text-xl">→</span>
-        </a>
+        </Link>
       </motion.div>
     </section>
   );

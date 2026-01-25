@@ -11,32 +11,53 @@ type TeamMember = {
 
 const team: TeamMember[] = [
   {
-    name: 'Zoya Rehman',
-    role: 'Head of Product & AI Strategy',
-    focus: 'Multi-platform product orchestration, AI ethics, venture partnerships',
-    experience: '9 yrs — ex-Airtribe, Microsoft Garage',
-    location: 'Dubai · GMT+4',
-  },
-  {
-    name: 'Hamza Iqbal',
-    role: 'Principal Frontend Architect',
-    focus: 'Design systems, performance, immersive web motion',
-    experience: '8 yrs — ex-InVision, Spotify Design Systems',
+    name: 'Muhammad Naveed',
+    role: 'Software Engineer',
+    focus: 'MERN Stack, Next.js, Golang, .NET, AI (LangChain, LLMs)',
+    experience: '3 yrs — Web, AI & DevOps',
     location: 'Karachi · GMT+5',
   },
   {
-    name: 'Sara Anwar',
-    role: 'Staff AI Engineer',
-    focus: 'LLM orchestration, computer vision, robotics ops',
-    experience: '7 yrs — ex-Bosch Robotics, AWS AI Labs',
-    location: 'Remote · GMT+1',
+    name: 'Amir Khan',
+    role: 'Software Engineer',
+    focus: 'FinTech systems, SQL-heavy architectures, MongoDB , MERN Stack, Next.js, Golang, .NET, AI (LangChain, LLMs)',
+    experience: '3 yrs — FinTech & Databases',
+    location: 'Karachi · GMT+5',
   },
   {
-    name: 'Talha Rahim',
-    role: 'Platform & DevOps Lead',
-    focus: 'CI/CD, SRE, compliance automation',
-    experience: '10 yrs — ex-Cloudflare, Twilio Platform',
-    location: 'Toronto · GMT-4',
+    name: 'Rashid Minhaj',
+    role: 'SQA Engineer',
+    focus: 'Selenium automation, Manual & API testing, Flutter/.NET basics',
+    experience: '2 yrs — QA & Testing',
+    location: 'Remote',
+  },
+  {
+    name: 'Ashir',
+    role: 'Software Engineer',
+    focus: 'MERN Stack, Python, AI development',
+    experience: '2 yrs — Full-Stack & AI',
+    location: 'Remote',
+  },
+  {
+    name: 'Usama',
+    role: 'Full-Stack Developer',
+    focus: 'React, TypeScript, NestJS, Docker, SQL',
+    experience: '4 yrs — Scalable Web Apps',
+    location: 'Remote',
+  },
+  {
+    name: 'Asad',
+    role: 'WordPress & Shopify Developer',
+    focus: 'Custom themes, plugins, eCommerce solutions',
+    experience: '5+ yrs — WordPress Expert',
+    location: 'Remote',
+  },
+  {
+    name: 'Shafaqat',
+    role: 'WordPress & Shopify Developer',
+    focus: 'Website setup, customization, cPanel management',
+    experience: '1 yr — Web Development',
+    location: 'Remote',
   },
 ];
 
@@ -95,9 +116,7 @@ export default function TeamShowcase() {
                 <span className="px-3 py-1 rounded-full border border-gray-200 dark:border-white/10">
                   {member.experience}
                 </span>
-                <span className="px-3 py-1 rounded-full border border-gray-200 dark:border-white/10">
-                  Xws Solution Leadership
-                </span>
+                
               </div>
             </div>
           </motion.article>

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Head from 'next/head';
 import { CheckCircle, ArrowRight, Sparkles, Zap, Shield, Rocket, Code, Palette, ShoppingCart, Heart, BookOpen, Film } from 'lucide-react';
+import Link from 'next/link';
 
 type Service = {
   id: string;
@@ -126,7 +127,7 @@ const services: Service[] = [
     icon: <Heart className="w-8 h-8" />,
     color: 'from-teal-500 to-blue-500',
     gradient: 'bg-gradient-to-br from-teal-50 to-blue-50 dark:from-teal-900/20 dark:to-blue-900/20',
-    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?q=80&w=1200&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200&auto=format&fit=crop',
     benefits: ['HIPAA compliance', 'Improved patient care', 'Streamlined workflows', 'Enhanced data security']
   },
   {
@@ -226,7 +227,7 @@ export default function ServicesPage() {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               {[
-                { value: '50+', label: 'Projects Completed', icon: <Rocket className="w-8 h-8" /> },
+                { value: '10+', label: 'Projects Completed', icon: <Rocket className="w-8 h-8" /> },
                 { value: '7', label: 'Service Categories', icon: <Sparkles className="w-8 h-8" /> },
                 { value: '100%', label: 'Client Satisfaction', icon: <Shield className="w-8 h-8" /> },
               ].map((stat, idx) => (
@@ -386,24 +387,26 @@ export default function ServicesPage() {
                   tailored to your specific needs.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link href="/contact" passHref>
                   <motion.a 
-                    href="/contact"
                     className="px-8 py-4 rounded-full bg-gradient-to-r from-brand via-brand to-purple-600 text-white font-semibold hover:shadow-2xl hover:shadow-brand/50 transition-all flex items-center justify-center gap-2"
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                  >
+                    >
                     Get Started Today
                     <ArrowRight className="w-5 h-5" />
                   </motion.a>
+                    </Link>
+                  <Link href="/projects" passHref>
                   <motion.a 
-                    href="/projects"
-                    className="px-8 py-4 rounded-full border-2 border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors font-semibold flex items-center justify-center gap-2"
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
+                  className="px-8 py-4 rounded-full border-2 border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors font-semibold flex items-center justify-center gap-2"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
                   >
                     View My Work
                     <ArrowRight className="w-5 h-5" />
                   </motion.a>
+                    </Link>
                 </div>
               </div>
             </motion.div>

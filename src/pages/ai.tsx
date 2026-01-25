@@ -3,11 +3,12 @@ import AutomationShowcase from '@/components/AutomationShowcase';
 import { motion } from 'framer-motion';
 import Head from 'next/head';
 import { Brain, Cpu, Zap, Shield, Rocket, TrendingUp, Code, Database, Cloud, Lock, CheckCircle, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 const heroStats = [
-  { label: 'models orchestrated', value: '15+', icon: <Brain className="w-6 h-6" /> },
-  { label: 'robotics cells automated', value: '12', icon: <Cpu className="w-6 h-6" /> },
-  { label: 'ml deployments / month', value: '30+', icon: <Zap className="w-6 h-6" /> },
+  { label: 'models orchestrated', value: '2+', icon: <Brain className="w-6 h-6" /> },
+  { label: 'robotics cells automated', value: '1', icon: <Cpu className="w-6 h-6" /> },
+  { label: 'ml deployments / month', value: '2+', icon: <Zap className="w-6 h-6" /> },
 ];
 
 const pillars = [
@@ -209,15 +210,17 @@ export default function AIStudioPage() {
                   Real-world deployments showcasing our expertise in AI, robotics, and intelligent automation.
                 </p>
               </div>
+              <Link href="/contact">
               <motion.a 
-                href="/contact" 
+                 
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-brand to-purple-600 text-white font-semibold hover:shadow-2xl hover:shadow-brand/50 transition-all"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-              >
+                >
                 Discuss your initiative
                 <ArrowRight className="w-5 h-5" />
               </motion.a>
+                </Link>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

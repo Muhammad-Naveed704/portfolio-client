@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Hero() {
   return (
@@ -29,12 +30,12 @@ export default function Hero() {
             >
               Download CV
             </a>
-            <a
+            <Link
               href="/contact"
               className="px-6 py-2.5 rounded-full border border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
             >
               Contact
-            </a>
+            </Link>
           </div>
           {/* Left quote block */}
           {/* <div className="hidden sm:block mt-8 max-w-sm">
