@@ -1,10 +1,19 @@
 import type { GetServerSideProps } from 'next';
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:8000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://xws.digital';
   const content = `User-agent: *
 Allow: /
-Sitemap: ${baseUrl}/sitemap.xml`;
+Disallow: /admin/
+Disallow: /xws-admin/
+Disallow: /chat
+Disallow: /thank-you
+
+# Sitemap
+Sitemap: ${baseUrl}/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1`;
   res.setHeader('Content-Type', 'text/plain');
   res.write(content);
   res.end();

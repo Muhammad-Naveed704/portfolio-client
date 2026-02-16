@@ -1,7 +1,7 @@
 import Layout from '@/components/Layout';
 import AutomationShowcase from '@/components/AutomationShowcase';
+import SEO from '@/components/SEO';
 import { motion } from 'framer-motion';
-import Head from 'next/head';
 import { Brain, Cpu, Zap, Shield, Rocket, TrendingUp, Code, Database, Cloud, Lock, CheckCircle, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -77,10 +77,34 @@ const platformFeatures = [
 export default function AIStudioPage() {
   return (
     <>
-      <Head>
-        <title>AI & Robotics Lab | Xws Solution | Enterprise AI Solutions</title>
-        <meta name="description" content="From prototype AI demos to mission-critical intelligence in production. Xws Solution builds AI copilots, computer vision systems, and robotics platforms." />
-      </Head>
+      <SEO
+        title="AI & Robotics Lab | Enterprise AI & ML Solutions | Automation & MLOps Services"
+        description="Xws Solution AI & Robotics Lab: Enterprise AI & ML Solutions, Automation & MLOps Services, LLM Products & Copilots, Computer Vision Systems, Robotics Platforms. From prototype AI demos to mission-critical intelligence in production. Specializing in OpenAI, Anthropic, LangChain, PyTorch, TensorFlow, MLOps, and production-ready AI systems."
+        keywords="Enterprise AI Solutions, ML Solutions, AI & Robotics Development, Automation Services, MLOps Services, LLM Products, AI Copilots, Computer Vision, Robotics Platforms, OpenAI, Anthropic, Gemini, LangChain, LlamaIndex, Haystack, TensorFlow, PyTorch, ONNX, Vector Databases, Weaviate, Pinecone, Redis Vector, Airflow, Prefect, Dagster, MLflow, BentoML, Weights & Biases, AI Ops, Intelligent Automation, Predictive Maintenance, Edge AI, WebRTC Robotics, Digital Twin, Industrial AI, Vision AI, GenAI, Prompt Engineering, Vector DB Architecture, MLOps Pipeline, CI/CD for AI, Model Deployment, GPU Orchestration"
+        canonical="https://xws.digital/ai"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Xws Solution AI & Robotics Lab",
+          "description": "Enterprise AI & ML Solutions, Automation & MLOps Services",
+          "url": "https://xws.digital/ai",
+          "knowsAbout": [
+            "Artificial Intelligence",
+            "Machine Learning",
+            "Robotics",
+            "Computer Vision",
+            "LLM Products",
+            "MLOps",
+            "Automation",
+            "AI Copilots"
+          ],
+          "offers": {
+            "@type": "Offer",
+            "name": "AI & Robotics Development Services",
+            "description": "Enterprise AI solutions, computer vision systems, and robotics platforms"
+          }
+        }}
+      />
       <Layout title="AI Studio">
         <div className="bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 text-white min-h-screen">
           {/* Hero Section */}

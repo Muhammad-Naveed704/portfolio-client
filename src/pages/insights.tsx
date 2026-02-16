@@ -1,9 +1,17 @@
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 import BlogPosts from '@/components/BlogPosts';
 
 export default function InsightsPage() {
   return (
-    <Layout title="Insights">
+    <>
+      <SEO
+        title="Insights & Blog | Engineering Notes | Xws Solution"
+        description="Read insights, engineering notes, and launch recaps from Xws Solution. Field-tested guidance on SaaS Development, Web Development, DevOps, AI & Robotics, CI/CD, and scaling digital products. Learn from our experience building production-ready solutions."
+        keywords="Xws Solution Blog, Software Development Blog, Web Development Insights, DevOps Best Practices, AI Development Blog, Engineering Notes, Tech Blog, SaaS Development Tips, CI/CD Best Practices, Software Engineering Blog, Technology Insights, Development Tutorials"
+        canonical="https://xws.digital/insights"
+      />
+      <Layout title="Insights">
       <section className="container-responsive py-16 sm:py-24">
         <div className="max-w-3xl mb-10">
           <p className="text-sm uppercase tracking-[0.4em] text-gray-500 dark:text-gray-400 mb-4">Insights</p>
@@ -15,6 +23,7 @@ export default function InsightsPage() {
         <BlogPosts />
       </section>
     </Layout>
+    </>
   );
 }
 

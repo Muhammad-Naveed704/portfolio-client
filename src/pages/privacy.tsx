@@ -1,4 +1,5 @@
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 
 const sections = [
   {
@@ -37,7 +38,15 @@ const sections = [
 
 export default function PrivacyPolicy() {
   return (
-    <Layout title="Privacy Policy">
+    <>
+      <SEO
+        title="Privacy Policy | Data Protection | Xws Solution"
+        description="Xws Solution Privacy Policy: How we protect your data, what we collect, how we use it, and your rights. We use encryption, role-based access controls, and continuous monitoring. SOC2/GDPR ready. Effective data protection for all clients."
+        keywords="Privacy Policy, Data Protection, GDPR Compliance, SOC2 Compliance, Data Security, Privacy Rights, Data Collection, Data Usage, Data Retention, Encryption, Security Measures, Xws Solution Privacy"
+        canonical="https://xws.digital/privacy"
+        noindex={false}
+      />
+      <Layout title="Privacy Policy">
       <section className="container-responsive py-16 sm:py-24">
         <div className="max-w-3xl">
           <p className="text-sm uppercase tracking-[0.4em] text-gray-500 dark:text-gray-400 mb-4">Privacy policy</p>
@@ -66,6 +75,7 @@ export default function PrivacyPolicy() {
         </div>
       </section>
     </Layout>
+    </>
   );
 }
 

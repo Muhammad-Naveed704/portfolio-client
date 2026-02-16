@@ -1,4 +1,5 @@
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 import { fetchProjects, Project } from '@/lib/api';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
@@ -46,7 +47,14 @@ export default function ProjectsPage({ projects, tag }: Props) {
   const tags = Array.from(new Set(projects.flatMap((p) => p.tags || [])));
   
   return (
-    <Layout title="Projects">
+    <>
+      <SEO
+        title="Projects & Portfolio | Web Development Projects | Xws Solution"
+        description="Explore Xws Solution's portfolio of successful projects: SaaS Development, Web Development, E-commerce Solutions, Healthcare Platforms, AI & Robotics Projects. Built with React.js, Next.js, Node.js, NestJS, WordPress, Shopify, and modern technologies. See our work in action."
+        keywords="Xws Solution Projects, Web Development Portfolio, SaaS Development Projects, E-commerce Projects, Healthcare Platform Projects, AI Projects, Robotics Projects, React.js Projects, Next.js Projects, Node.js Projects, WordPress Projects, Shopify Projects, Software Development Portfolio, Case Studies, Project Showcase"
+        canonical="https://xws.digital/projects"
+      />
+      <Layout title="Projects">
       <section className="container-responsive py-12">
         <h1 className="text-3xl font-bold mb-8">My Projects</h1>
         
@@ -81,6 +89,7 @@ export default function ProjectsPage({ projects, tag }: Props) {
         )}
       </section>
     </Layout>
+    </>
   );
 }
 

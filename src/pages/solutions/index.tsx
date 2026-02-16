@@ -1,4 +1,5 @@
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
@@ -34,7 +35,14 @@ const deploymentTimeline = [
 
 export default function SolutionsPage() {
   return (
-    <Layout title="Solutions">
+    <>
+      <SEO
+        title="Solutions | CI/CD & DevOps | Platform Engineering | Xws Solution"
+        description="Xws Solution offers battle-tested delivery frameworks: CI/CD & Platform Engineering, Production Reliability & SRE, Commerce & SaaS Platforms, Communication & Email Systems. Zero to production with shared accountability. Specializing in GitHub Actions, Kubernetes, Vercel, AWS, Azure, Stripe, Postmark, Resend, Twilio."
+        keywords="CI/CD Pipeline Implementation, DevOps Solutions, Platform Engineering, Production Reliability, SRE Services, Commerce Platforms, SaaS Platforms, Communication Systems, Email Infrastructure, GitHub Actions, Kubernetes, Vercel, AWS, Azure, Stripe Integration, Postmark, Resend, Twilio, Infrastructure as Code, Observability, Monitoring, Load Testing, Incident Response, Runbooks"
+        canonical="https://xws.digital/solutions"
+      />
+      <Layout title="Solutions">
       <div className="bg-white dark:bg-gray-950">
         <section className="container-responsive py-16 sm:py-24">
           <div className="max-w-3xl">
@@ -116,6 +124,7 @@ export default function SolutionsPage() {
         </section>
       </div>
     </Layout>
+    </>
   );
 }
 

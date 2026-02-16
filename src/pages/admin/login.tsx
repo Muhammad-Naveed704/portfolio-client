@@ -11,11 +11,17 @@ export default function AdminLogin() {
   const mutation = useMutation({
     mutationFn: async (form: { email: string; password: string }) => login(form),
     onSuccess: (data) => {
-      setAuthToken(data.token);
+      // Handle ApiResponse structure: { data: { user, accessToken }, message, success }
+      const responseData = data?.data || data;
+      const token = responseData?.accessToken || responseData?.token;
+      const user = responseData?.user;
+      
+      setAuthToken(token);
       if (typeof window !== 'undefined') {
-        localStorage.setItem('authToken', data.token);
-        if (data?.user?.id) localStorage.setItem('userId', data.user.id);
-        if (data?.user?.name) localStorage.setItem('userName', data.user.name);
+        if (token) localStorage.setItem('authToken', token);
+        if (user?.id || user?._id) localStorage.setItem('userId', user.id || user._id);
+        if (user?.name) localStorage.setItem('userName', user.name);
+        if (user?.role) localStorage.setItem('userRole', user.role);
       }
       toast.success('Logged in');
       router.push('/');
@@ -37,7 +43,7 @@ export default function AdminLogin() {
   }
 
   return (
-    <Layout title="Admin Login">
+    <Layout title="AdminLogin">
       <section className="container-responsive py-12">
         <h1 className="text-2xl font-semibold">Admin Login</h1>
         <form onSubmit={onSubmit} className="mt-6 grid gap-3 max-w-sm">

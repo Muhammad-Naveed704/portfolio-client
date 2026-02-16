@@ -1,4 +1,5 @@
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 
 const sections = [
   {
@@ -43,7 +44,15 @@ const sections = [
 
 export default function TermsPage() {
   return (
-    <Layout title="Terms of Service">
+    <>
+      <SEO
+        title="Terms of Service | Legal | Xws Solution"
+        description="Xws Solution Terms of Service: Engagement scope, intellectual property, payments, confidentiality, warranties, and liability. Working with Xws Solution for SaaS Development, Web Development, DevOps, and AI Solutions."
+        keywords="Terms of Service, Legal Terms, Service Agreement, Engagement Terms, Intellectual Property, Payment Terms, Confidentiality, Warranties, Liability, Xws Solution Terms"
+        canonical="https://xws.digital/terms"
+        noindex={false}
+      />
+      <Layout title="Terms of Service">
       <section className="container-responsive py-16 sm:py-24">
         <div className="max-w-3xl">
           <p className="text-sm uppercase tracking-[0.4em] text-gray-500 dark:text-gray-400 mb-4">Terms of service</p>
@@ -72,6 +81,7 @@ export default function TermsPage() {
         </div>
       </section>
     </Layout>
+    </>
   );
 }
 

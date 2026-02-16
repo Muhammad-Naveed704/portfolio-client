@@ -145,6 +145,23 @@ export async function sendMessageApi(receiverId: string, message: string) {
   return (await res.json()) as ChatMessage;
 }
 
+// Admin chat functions
+export async function getAdminConversations() {
+  const res = await fetch(`${API_BASE}/chat/admin/conversations`, { headers: { Authorization: `Bearer ${authToken}` } });
+  if (!res.ok) throw new Error('Failed to load admin conversations');
+  return (await res.json()) as ConversationPreview[];
+}
+
+export async function adminReplyToGuest(guestId: string, message: string) {
+  const res = await fetch(`${API_BASE}/chat/admin/reply`, { 
+    method: 'POST', 
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${authToken}` }, 
+    body: JSON.stringify({ guestId, message }) 
+  });
+  if (!res.ok) throw new Error('Failed to send reply');
+  return (await res.json()) as ChatMessage;
+}
+
 // Public GitHub API – recent repositories by user
 export type GitHubRepo = {
   id: number;

@@ -17,7 +17,7 @@ export default function Layout({ title, children }: Props) {
   const siteTitle = title ? `${title} | Xws Solution` : 'Xws Solution | Digital Engineering Studio';
   const [open, setOpen] = useState(false);
 
-  // Navigation items
+  // Navigation items (public routes only - secret admin routes hidden)
   const navItems = [
     { href: '/', label: 'Home', isExternal: false },
     { href: '/services', label: 'Services', isExternal: false },
@@ -29,6 +29,7 @@ export default function Layout({ title, children }: Props) {
     { href: '/career', label: 'Career', isExternal: false },
     { href: '/contact', label: 'Contact', isExternal: false },
     { href: '/chat', label: 'Chat', isExternal: false },
+    // Secret admin routes: /xws-admin/* (not shown in navigation)
   ];
 
   useEffect(() => {
@@ -86,6 +87,7 @@ export default function Layout({ title, children }: Props) {
         <title>{siteTitle}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#0b1220" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <div className="min-h-screen flex flex-col">
         <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200/60 dark:border-gray-800/60">
@@ -94,10 +96,10 @@ export default function Layout({ title, children }: Props) {
               {/* Logo */}
               <div className="flex items-center gap-2">
                 <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-brand to-brand/70 text-white flex items-center justify-center font-semibold tracking-wide shadow-md">
-                  XS
+                  Xws
                 </div>
                 <Link href="/" className="font-semibold text-gray-900 dark:text-white hover:text-brand transition-colors">
-                  Xws Solution
+                   Solutions
                 </Link>
               </div>
 
@@ -197,24 +199,7 @@ export default function Layout({ title, children }: Props) {
                     Start a Project
                   </Link>
                   
-                  {/* Admin Links for Mobile */}
-                  {token && (
-                    <>
-                      <div className="border-t border-gray-200 dark:border-gray-700 my-2" />
-                      <button
-                        onClick={() => handleNavigation('/admin/projects/create', false)}
-                        className="text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-brand hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                      >
-                        Create Project
-                      </button>
-                      <button
-                        onClick={() => handleNavigation('/admin/experience/create', false)}
-                        className="text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-brand hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                      >
-                        Create Experience
-                      </button>
-                    </>
-                  )}
+                  {/* Secret admin routes not shown in navigation */}
                 </nav>
               </div>
             )}
