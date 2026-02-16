@@ -1,7 +1,7 @@
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import Head from 'next/head';
 import { Globe, DollarSign, BookOpen, Heart, Laptop, PartyPopper, CheckCircle, ArrowRight, MapPin, Briefcase, Clock, Users } from 'lucide-react';
 
 const benefits = [
@@ -96,10 +96,12 @@ const values = [
 export default function CareerPage() {
   return (
     <>
-      <Head>
-        <title>Career | Xws Solution | Join Our Team</title>
-        <meta name="description" content="Build your career with Xws Solution. We're looking for talented individuals passionate about technology and innovation. Remote-first positions available." />
-      </Head>
+      <SEO
+        title="Careers | Join Our Team | Xws Solution"
+        description="Build your career with Xws Solution. We're looking for talented Software Engineers, Full-Stack Developers, AI/ML Engineers, Frontend Developers, and DevOps Engineers. Remote-first positions available with competitive salary, learning opportunities, and great work culture. Join our team of experts in SaaS Development, Web Development, AI & Robotics."
+        keywords="Xws Solution Careers, Software Engineer Jobs, Full-Stack Developer Jobs, AI Engineer Jobs, ML Engineer Jobs, Frontend Developer Jobs, DevOps Engineer Jobs, Remote Jobs, Software Development Jobs, Web Development Jobs, AI Development Jobs, Technology Jobs, Karachi Jobs, Pakistan Jobs, Remote Work, Tech Careers"
+        canonical="https://xws.digital/career"
+      />
       <Layout title="Career">
         <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-white dark:from-gray-950 dark:via-gray-950 dark:to-gray-900">
           {/* Hero Section */}

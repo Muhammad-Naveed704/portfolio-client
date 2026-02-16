@@ -1,4 +1,5 @@
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { 
@@ -13,12 +14,14 @@ import {
   sendGuestMessage,
   getGuestMessages,
   initializeGuestUser,
+  getAdminConversations,
+  adminReplyToGuest,
   OnlineUser
 } from '@/lib/api';
 import { getSocket, joinUserRoom } from '@/lib/socket';
 import { motion } from 'framer-motion';
 import { Search, Phone, Video, MoreVertical, Send, Smile, Paperclip } from 'lucide-react';
-import Head from 'next/head';
+
 
 export default function ChatPage() {
   const [mounted, setMounted] = useState(false); 
@@ -34,6 +37,8 @@ export default function ChatPage() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const isAuthenticated = mounted ? Boolean(localStorage.getItem('authToken')) : false;
+  const userRole = mounted ? localStorage.getItem('userRole') : null;
+  const isAdmin = userRole === 'admin';
 
   // Initialize guest user on mount
   useEffect(() => {
@@ -131,7 +136,7 @@ export default function ChatPage() {
   // Queries
   const convQ = useQuery({
     queryKey: ['conversations'],
-    queryFn: () => fetchConversations(),
+    queryFn: () => isAdmin ? getAdminConversations() : fetchConversations(),
     enabled: mounted && isAuthenticated,
     refetchInterval: 10000,
   });
@@ -171,6 +176,10 @@ export default function ChatPage() {
   const sendMut = useMutation({
     mutationFn: (p: { to: string; text: string }) => {
       if (isAuthenticated) {
+        // If admin, use admin reply function
+        if (isAdmin) {
+          return adminReplyToGuest(p.to, p.text);
+        }
         return sendMessageApi(p.to, p.text);
       } else {
         // If sending to support, use anonymous message
@@ -279,10 +288,13 @@ export default function ChatPage() {
 
   return (
     <>
-      <Head>
-        <title>Chat | Xws Solution | Real-time Messaging</title>
-        <meta name="description" content="Connect with Xws Solution team and other users through our real-time chat platform." />
-      </Head>
+      <SEO
+        title="Chat | Real-time Messaging | Xws Solution"
+        description="Connect with Xws Solution team and other users through our real-time chat platform. Get instant support, discuss projects, and communicate with our development team. Real-time messaging powered by WebSocket technology."
+        keywords="Chat, Real-time Messaging, Live Chat, Support Chat, WebSocket Chat, Instant Messaging, Team Communication, Customer Support, Project Discussion, Xws Solution Chat"
+        canonical="https://xws.digital/chat"
+        noindex={true}
+      />
     <Layout title="Chat">
         <div className="container-responsive py-4 h-[calc(100vh-120px)]">
           <div className="grid grid-cols-1 md:grid-cols-[350px_1fr] gap-0 h-full bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-xl">
@@ -297,7 +309,7 @@ export default function ChatPage() {
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">{myName}</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                      {isAuthenticated ? 'Authenticated' : 'Guest User'}
+                      {isAdmin ? 'Admin' : isAuthenticated ? 'Authenticated' : 'Guest User'}
                     </p>
                   </div>
                 </div>
@@ -475,6 +487,7 @@ export default function ChatPage() {
               </div>
           )}
         </section>
+        
           </div>
       </div>
     </Layout>

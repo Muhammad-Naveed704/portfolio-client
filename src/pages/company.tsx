@@ -1,4 +1,5 @@
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
@@ -46,7 +47,14 @@ const stats = [
 
 export default function CompanyPage() {
   return (
-    <Layout title="Company">
+    <>
+      <SEO
+        title="About Us | Xws Solution | Digital Engineering Studio"
+        description="Xws Solution is a full-spectrum digital engineering studio specializing in AI, web, mobile, and platform solutions. Learn about our mission, vision, values, and journey in building the future of digital solutions. Based in Karachi, Pakistan, serving clients worldwide."
+        keywords="Xws Solution, Digital Engineering Studio, Software Development Company, AI Development Company, Web Development Company, About Xws Solution, Company History, Team, Mission, Vision, Values, Karachi Pakistan, Software Engineering, Technology Company"
+        canonical="https://xws.digital/company"
+      />
+      <Layout title="Company">
       <div className="min-h-screen">
         {/* Hero Section */}
         <section className="container-responsive py-16 sm:py-24">
@@ -233,6 +241,7 @@ export default function CompanyPage() {
         </section>
       </div>
     </Layout>
+    </>
   );
 }
 

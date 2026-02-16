@@ -4,11 +4,11 @@ import Testimonials from '@/components/Testimonials';
 import BlogPosts from '@/components/BlogPosts';
 import GithubShowcase from '@/components/GithubShowcase';
 import TeamShowcase from '@/components/TeamShowcase';
+import SEO from '@/components/SEO';
 import { fetchProjects, Project } from '@/lib/api';
 import { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { motion } from 'framer-motion';
-import Head from 'next/head';
 import Link from 'next/link';
 
 
@@ -117,50 +117,69 @@ export default function Home({ featured, allProjects }: Props) {
   const launchCount = effectiveAll.length ? `${effectiveAll.length}+` : '70+';
   return (
     <>
-      <Head>
-        <title>Xws Solution | AI & Robotics Lab | Digital Engineering Studio</title>
-        <meta name="description" content="Xws Solution builds AI copilots, computer vision systems, and robotics platforms. From prototype AI demos to mission-critical intelligence in production. Full-spectrum product, AI, and platform teams delivering enterprise-grade solutions." />
-        <meta name="keywords" content="AI development, robotics, computer vision, LLM products, MLOps, Next.js development, React development, enterprise AI, automation, intelligent operations, digital engineering" />
-        <meta name="author" content="Xws Solution" />
-        <meta property="og:title" content="Xws Solution | AI & Robotics Lab | Digital Engineering Studio" />
-        <meta property="og:description" content="From prototype AI demos to mission-critical intelligence in production. We build AI copilots, computer vision systems, and robotics platforms." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://xwssolution.com" />
-        <meta property="og:image" content="https://xwssolution.com/og-image.jpg" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Xws Solution | AI & Robotics Lab" />
-        <meta name="twitter:description" content="From prototype AI demos to mission-critical intelligence in production." />
-        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-        <link rel="canonical" href="https://xwssolution.com" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "Xws Solution",
-              "description": "AI & Robotics Lab delivering enterprise-grade AI copilots, computer vision systems, and robotics platforms",
-              "url": "https://xwssolution.com",
-              "logo": "https://xwssolution.com/logo.png",
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "telephone": "+92-344-286-2704",
-                "contactType": "Customer Service",
-                "email": "hello@xwssolution.com"
-              },
-              "sameAs": [
-                "https://github.com/Xws-Solution",
-                "https://linkedin.com/company/xws-solution"
-              ],
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Karachi",
-                "addressCountry": "PK"
-              }
-            })
-          }}
-        />
-      </Head>
+      <SEO
+        title="AI & Robotics Lab | SaaS Development Services | Web Development Agency"
+        description="Xws Solution - Leading SaaS Development Services, Web Development Agency, DevOps Solutions, AI & Robotics Development. From prototype AI demos to mission-critical intelligence in production. Full-spectrum product, AI, and platform teams delivering enterprise-grade solutions. Specializing in React.js, Next.js, Node.js, NestJS, WordPress, Shopify, AWS, Azure, Vercel."
+        keywords="SaaS Development Services, Web Development Agency, DevOps Solutions, AI & Robotics Development, Full-Stack Development Services, Shopify Development, WordPress Development, Cloud Solutions AWS Azure Vercel, React.js Development, Next.js Development Company, Enterprise AI Solutions, ML Solutions, Automation Services, MLOps Services, CI/CD Pipeline Implementation, Custom Software Development Services, UX/UI Design for SaaS, E-commerce Web Development Services, AI Copilots, Computer Vision, LLM Products, MLOps, Robotics Platforms, Next.js, React.js, Node.js, NestJS, TypeScript"
+        canonical="https://xws.digital"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Xws Solution",
+          "description": "Full-spectrum digital engineering studio specializing in SaaS Development, Web Development, DevOps, AI & Robotics, and Enterprise Solutions",
+          "url": "https://xws.digital",
+          "logo": "https://xws.digital/xws-logo.png",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+92-344-286-2704",
+            "contactType": "Customer Service",
+            "email": "mnaveed2862@gmail.com",
+            "areaServed": "Worldwide",
+            "availableLanguage": ["English"]
+          },
+          "sameAs": [
+            "https://github.com/Muhammad-Naveed704",
+            "https://www.linkedin.com/company/team-tech-wave-solution"
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Karachi",
+            "addressCountry": "PK"
+          },
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "SaaS Development Services",
+              "description": "Custom SaaS platform development with modern technologies"
+            },
+            {
+              "@type": "Offer",
+              "name": "Web Development Services",
+              "description": "Full-stack web development with React, Next.js, Node.js"
+            },
+            {
+              "@type": "Offer",
+              "name": "DevOps Solutions",
+              "description": "CI/CD pipelines, cloud infrastructure, and automation"
+            },
+            {
+              "@type": "Offer",
+              "name": "AI & Robotics Development",
+              "description": "AI copilots, computer vision, and robotics platforms"
+            }
+          ],
+          "knowsAbout": [
+            "SaaS Development",
+            "Web Development",
+            "DevOps",
+            "AI & Machine Learning",
+            "Robotics",
+            "Cloud Computing",
+            "Full-Stack Development",
+            "E-commerce Development"
+          ]
+        }}
+      />
       <Layout title="Home">
       <div className="min-h-screen bg-gradient-to-b from-white via-white to-gray-50 dark:from-gray-950 dark:via-gray-950 dark:to-gray-900">
         {/* Hero */}

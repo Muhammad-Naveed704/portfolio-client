@@ -1,7 +1,7 @@
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import Head from 'next/head';
 import { CheckCircle, ArrowRight, Sparkles, Zap, Shield, Rocket, Code, Palette, ShoppingCart, Heart, BookOpen, Film } from 'lucide-react';
 import Link from 'next/link';
 
@@ -181,10 +181,61 @@ export default function ServicesPage() {
 
   return (
     <>
-      <Head>
-        <title>Services | Xws Solution | Professional Development Services</title>
-        <meta name="description" content="Comprehensive development services including web development, frontend, backend, e-commerce, healthcare platforms, and creative design solutions." />
-      </Head>
+      <SEO
+        title="Professional Development Services | SaaS, Web, DevOps, AI Solutions"
+        description="Comprehensive development services by Xws Solution: SaaS Development Services, Web Development Agency, Full-Stack Development, Frontend & Backend Development, E-commerce Solutions (Shopify & WordPress), Healthcare Platforms, Digital Publishing, Creative Design Services. Expert in React.js, Next.js, Node.js, NestJS, TypeScript, MongoDB, PostgreSQL, AWS, Azure, Vercel."
+        keywords="SaaS Development Services, Web Development Agency, Full-Stack Development Services, Frontend Development, Backend Development, E-commerce Web Development Services, Shopify Development, WordPress Development, Healthcare Platform Development, Digital Publishing Solutions, Custom Software Development Services, React.js Development, Next.js Development, Node.js Development, NestJS Development, TypeScript Development, MongoDB Development, PostgreSQL Development, AWS Development, Azure Development, Vercel Development, API Development, Database Design, Performance Optimization, SEO Services, Progressive Web Apps, Serverless Architecture, Cloud Deployment"
+        canonical="https://xws.digital/services"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "serviceType": "Software Development Services",
+          "provider": {
+            "@type": "Organization",
+            "name": "Xws Solution",
+            "url": "https://xws.digital"
+          },
+          "areaServed": "Worldwide",
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Development Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "SaaS Development Services",
+                  "description": "Custom SaaS platform development with modern technologies"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Web Development Services",
+                  "description": "Full-stack web development with React, Next.js, Node.js"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "E-commerce Development",
+                  "description": "Shopify and WordPress e-commerce solutions"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "AI & ML Solutions",
+                  "description": "Enterprise AI and machine learning solutions"
+                }
+              }
+            ]
+          }
+        }}
+      />
       <Layout title="Services">
         <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-white dark:from-gray-950 dark:via-gray-950 dark:to-gray-900">
           {/* Hero Section */}

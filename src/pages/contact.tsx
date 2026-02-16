@@ -1,10 +1,10 @@
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 import { submitContact } from '@/lib/api';
 import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/router';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
-import Head from 'next/head';
 import { MapPin, Phone, Mail, Linkedin, Github, Send } from 'lucide-react';
 
 export default function ContactPage() {
@@ -41,12 +41,12 @@ export default function ContactPage() {
 
   return (
     <>
-      <Head>
-        <title>Contact Us | Xws Solution | Get in Touch</title>
-        <meta name="description" content="Get in touch with Xws Solution. We're here to help with your AI, robotics, and digital engineering needs. Contact us for consultations and project inquiries." />
-        <meta name="keywords" content="contact Xws Solution, AI consulting, robotics consulting, digital engineering contact" />
-      </Head>
-       
+      <SEO
+        title="Contact Us | Get in Touch | Xws Solution"
+        description="Get in touch with Xws Solution for SaaS Development Services, Web Development, DevOps Solutions, AI & Robotics Development, and Custom Software Development. Contact us for consultations, project inquiries, and free quotes. Located in Karachi, Pakistan. Response within 24 hours."
+        keywords="Contact Xws Solution, SaaS Development Contact, Web Development Contact, DevOps Consulting, AI Consulting, Robotics Consulting, Software Development Contact, Project Inquiry, Free Consultation, Get Quote, Contact Form, Karachi Pakistan, Software Development Services Contact"
+        canonical="https://xws.digital/contact"
+      />
       <Layout title="Contact">
         <section className="container-responsive py-16 sm:py-20" id="contact">
           <div className="text-center mb-12">
