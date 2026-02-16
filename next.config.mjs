@@ -13,6 +13,7 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'api.xws.digital/api',
         port: '',
+        
         pathname: '/**',
       },
       {
