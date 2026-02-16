@@ -328,4 +328,149 @@ function createLocalGuestUser(name?: string) {
   return { userId, name: userName };
 }
 
+// Blog Types
+export type Blog = {
+  _id?: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  featuredImage?: string;
+  category: string;
+  tags: string[];
+  author: {
+    name: string;
+    email?: string;
+    avatar?: string;
+  };
+  featured?: boolean;
+  published?: boolean;
+  publishedAt?: string;
+  readingTime?: number;
+  views?: number;
+  seo?: {
+    metaTitle?: string;
+    metaDescription?: string;
+    keywords?: string[];
+  };
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type BlogListResponse = {
+  blogs: Blog[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    pages: number;
+  };
+};
+
+// Blog API Functions
+export async function fetchBlogs(params?: {
+  category?: string;
+  tag?: string;
+  featured?: boolean;
+  search?: string;
+  page?: number;
+  limit?: number;
+  sort?: string;
+}): Promise<BlogListResponse> {
+  const qs = new URLSearchParams();
+  if (params?.category) qs.set('category', params.category);
+  if (params?.tag) qs.set('tag', params.tag);
+  if (params?.featured !== undefined) qs.set('featured', String(params.featured));
+  if (params?.search) qs.set('search', params.search);
+  if (params?.page) qs.set('page', String(params.page));
+  if (params?.limit) qs.set('limit', String(params.limit));
+  if (params?.sort) qs.set('sort', params.sort);
+  
+  const res = await fetch(`${API_BASE}/blogs?${qs.toString()}`);
+  if (!res.ok) throw new Error('Failed to fetch blogs');
+  return (await res.json()) as BlogListResponse;
+}
+
+export async function fetchBlog(slug: string): Promise<Blog> {
+  const res = await fetch(`${API_BASE}/blogs/${slug}`);
+  if (!res.ok) throw new Error('Failed to fetch blog');
+  return (await res.json()) as Blog;
+}
+
+export async function fetchRelatedBlogs(slug: string, limit = 3): Promise<Blog[]> {
+  const res = await fetch(`${API_BASE}/blogs/related?slug=${slug}&limit=${limit}`);
+  if (!res.ok) throw new Error('Failed to fetch related blogs');
+  return (await res.json()) as Blog[];
+}
+
+export async function fetchBlogCategories(): Promise<string[]> {
+  const res = await fetch(`${API_BASE}/blogs/categories`);
+  if (!res.ok) throw new Error('Failed to fetch categories');
+  return (await res.json()) as string[];
+}
+
+export async function fetchBlogTags(): Promise<string[]> {
+  const res = await fetch(`${API_BASE}/blogs/tags`);
+  if (!res.ok) throw new Error('Failed to fetch tags');
+  return (await res.json()) as string[];
+}
+
+// Admin Blog Functions
+export async function createBlogApi(payload: Partial<Blog> | FormData) {
+  const form = payload instanceof FormData ? payload : (() => {
+    const fd = new FormData();
+    Object.entries(payload as any).forEach(([k, v]) => {
+      if (v === undefined || v === null) return;
+      if (Array.isArray(v)) {
+        fd.append(k, JSON.stringify(v));
+      } else if (typeof v === 'object') {
+        fd.append(k, JSON.stringify(v));
+      } else {
+        fd.append(k, v as any);
+      }
+    });
+    return fd;
+  })();
+  const res = await fetch(`${API_BASE}/blogs/create`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${authToken}` },
+    body: form,
+  });
+  if (!res.ok) throw new Error('Failed to create blog');
+  return await res.json();
+}
+
+export async function updateBlogApi(id: string, payload: Partial<Blog> | FormData) {
+  const form = payload instanceof FormData ? payload : (() => {
+    const fd = new FormData();
+    Object.entries(payload as any).forEach(([k, v]) => {
+      if (v === undefined || v === null) return;
+      if (Array.isArray(v)) {
+        fd.append(k, JSON.stringify(v));
+      } else if (typeof v === 'object') {
+        fd.append(k, JSON.stringify(v));
+      } else {
+        fd.append(k, v as any);
+      }
+    });
+    return fd;
+  })();
+  const res = await fetch(`${API_BASE}/blogs/${id}`, {
+    method: 'PUT',
+    headers: { Authorization: `Bearer ${authToken}` },
+    body: form,
+  });
+  if (!res.ok) throw new Error('Failed to update blog');
+  return await res.json();
+}
+
+export async function deleteBlogApi(id: string) {
+  const res = await fetch(`${API_BASE}/blogs/${id}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${authToken}` },
+  });
+  if (!res.ok) throw new Error('Failed to delete blog');
+  return await res.json();
+}
+
 
