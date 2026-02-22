@@ -294,6 +294,7 @@ export default function AIStudioPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
+                
               >
                 <p className="text-sm uppercase tracking-[0.35em] text-white/70 mb-4 font-medium flex items-center gap-2">
                   <Shield className="w-4 h-4" />
