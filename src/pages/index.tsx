@@ -215,7 +215,7 @@ export default function Home({ featured, allProjects }: Props) {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Link href="/contact" >
-                <motion.a
+                <motion.span
                   
                   className="px-8 py-4 rounded-full bg-gradient-to-r from-brand via-brand to-purple-600 text-white font-semibold hover:shadow-2xl hover:shadow-brand/50 hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
                   whileHover={{ scale: 1.02 }}
@@ -223,10 +223,10 @@ export default function Home({ featured, allProjects }: Props) {
                   >
                   Start a Project
                   <span className="text-lg">→</span>
-                </motion.a>
+                </motion.span>
                   </Link> 
                 <Link href="/ai">
-                <motion.a
+                <motion.span
                   
                   className="px-8 py-4 rounded-full border-2 border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-medium flex items-center justify-center gap-2"
                   whileHover={{ scale: 1.02 }}
@@ -234,7 +234,7 @@ export default function Home({ featured, allProjects }: Props) {
                   >
                   Explore AI Studio
                   <span>↗</span>
-                </motion.a>
+                </motion.span>
                   </Link>
               </div>
               <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-200 dark:border-gray-800">
@@ -355,12 +355,12 @@ export default function Home({ featured, allProjects }: Props) {
               </p>
             </div>
             <Link href="/services">
-            <motion.a 
+            <motion.span 
               className="text-brand font-semibold hover:underline flex items-center gap-2"
               whileHover={{ x: 5 }}
             >
               Explore services →
-            </motion.a>
+            </motion.span>
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -408,14 +408,16 @@ export default function Home({ featured, allProjects }: Props) {
                 Real-world deployments of AI systems, computer vision, and robotics platforms delivering measurable business outcomes.
               </p>
             </div>
-            <motion.a 
-              href="/ai" 
+            <Link href="/ai">
+            <motion.span 
+               
               className="px-6 py-3 rounded-full border-2 border-brand text-brand hover:bg-brand hover:text-white transition-all font-medium"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-            >
+              >
               Visit AI Studio →
-            </motion.a>
+            </motion.span>
+              </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {aiCaseStudies.map((caseStudy, index) => (

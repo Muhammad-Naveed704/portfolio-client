@@ -235,7 +235,7 @@ export default function AIStudioPage() {
                 </p>
               </div>
               <Link href="/contact">
-              <motion.a 
+              <motion.span 
                  
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-brand to-purple-600 text-white font-semibold hover:shadow-2xl hover:shadow-brand/50 transition-all"
                 whileHover={{ scale: 1.05, y: -2 }}
@@ -243,7 +243,7 @@ export default function AIStudioPage() {
                 >
                 Discuss your initiative
                 <ArrowRight className="w-5 h-5" />
-              </motion.a>
+              </motion.span>
                 </Link>
             </div>
 
@@ -318,14 +318,16 @@ export default function AIStudioPage() {
                     </motion.li>
                   ))}
                 </ul>
-                <motion.a 
-                  href="/solutions" 
-                  className="inline-flex items-center gap-2 text-white font-semibold hover:text-brand transition-colors text-lg"
-                  whileHover={{ x: 5 }}
-                >
+                <Link href="/solutions">
+                <motion.span 
+                   
+                 className="inline-flex items-center gap-2 text-white font-semibold hover:text-brand transition-colors text-lg"
+                 whileHover={{ x: 5 }}
+                 >
                   Explore platform solutions
                   <ArrowRight className="w-5 h-5" />
-                </motion.a>
+                </motion.span>
+                  </Link>
               </motion.div>
 
               <motion.div
