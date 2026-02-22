@@ -388,24 +388,24 @@ export default function ServicesPage() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link href="/contact" passHref>
-                  <motion.a 
+                  <motion.span 
                     className="px-8 py-4 rounded-full bg-gradient-to-r from-brand via-brand to-purple-600 text-white font-semibold hover:shadow-2xl hover:shadow-brand/50 transition-all flex items-center justify-center gap-2"
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                     >
                     Get Started Today
                     <ArrowRight className="w-5 h-5" />
-                  </motion.a>
+                  </motion.span>
                     </Link>
                   <Link href="/projects" passHref>
-                  <motion.a 
+                  <motion.span 
                   className="px-8 py-4 rounded-full border-2 border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors font-semibold flex items-center justify-center gap-2"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   >
                     View My Work
                     <ArrowRight className="w-5 h-5" />
-                  </motion.a>
+                  </motion.span>
                     </Link>
                 </div>
               </div>
