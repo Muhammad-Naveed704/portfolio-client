@@ -32,6 +32,13 @@ const team: TeamMember[] = [
     location: 'Remote',
   },
   {
+    name: 'Abdul Wahab',
+    role: 'Web Designer & Developer',
+    focus: 'I specialize in designing and developing responsive websites using WordPress and Shopify. With a keen eye for aesthetics and a strong understanding of user experience, I create visually appealing and functional websites that cater to the unique needs of each client.',
+    experience: '1 year — wordpress & php development',
+    location: 'Remote',
+  },
+  {
     name: 'Ashir',
     role: 'Software Engineer',
     focus: 'MERN Stack, Python, AI development',

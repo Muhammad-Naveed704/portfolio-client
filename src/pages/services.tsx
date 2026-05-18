@@ -306,6 +306,7 @@ export default function ServicesPage() {
               {services.map((service, index) => (
                 <motion.div
                   key={service.id}
+                  id={`service-${service.id}`}
                   className={`group cursor-pointer rounded-3xl overflow-hidden transition-all duration-500 border-2 border-gray-200 dark:border-gray-800 hover:border-brand/50 hover:shadow-2xl ${service.gradient}`}
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}

@@ -1,28 +1,119 @@
+/**
+ * XWS Theme Engine — TechEquator-inspired dark studio
+ * Change values here to restyle the whole marketing site.
+ */
 :root {
-  --color-bg: #0b0e14;
-  --color-surface: #111827;
-  --color-muted: #6b7280;
-  --color-border: #1f2937;
-  --color-primary: #ff7a00; /* Figma orange accent */
-  --color-primary-contrast: #ffffff;
+  /* Surfaces */
+  --xws-bg-canvas: #000000;
+  --xws-bg-raised: #050505;
+  --xws-bg-card: #0f0f0f;
+  --xws-bg-glass: rgba(12, 12, 12, 0.72);
+
+  /* Text */
+  --xws-text-primary: #ffffff;
+  --xws-text-secondary: #e5e7eb;
+  --xws-text-muted: #9ca3af;
+  --xws-text-faint: #6b7280;
+
+  /* Brand (logo: cyan ↔ lime) */
+  --xws-accent: #34d399;
+  --xws-accent-hover: #4ade80;
+  --xws-accent-dim: rgba(52, 211, 153, 0.12);
+  --xws-accent-contrast: #020617;
+  --xws-blue: #22d3ee;
+  --xws-blue-dim: rgba(34, 211, 238, 0.12);
+
+  /* Lines & shadows */
+  --xws-border: rgba(255, 255, 255, 0.08);
+  --xws-border-strong: rgba(255, 255, 255, 0.14);
+  --xws-shadow-glow: 0 0 40px rgba(52, 211, 153, 0.22);
+  --xws-shadow-glow-blue: 0 0 36px rgba(34, 211, 238, 0.18);
+
+  /* Legacy tokens (components using var(--color-*)) */
+  --color-bg: var(--xws-bg-canvas);
+  --color-surface: var(--xws-bg-card);
+  --color-muted: var(--xws-text-muted);
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-primary: var(--xws-accent);
+  --color-primary-contrast: var(--xws-accent-contrast);
+
+  --radius-pill: 9999px;
+  --radius-panel: 1.25rem;
+  --radius-dropdown: 1.5rem;
+
+  /* Header & footer — always premium dark */
+  --xws-header-bg: rgba(0, 0, 0, 0.92);
+  --xws-header-nav-bg: #0a0a0a;
+  --xws-dropdown-bg: #0c0c0c;
+  --xws-footer-bg: #000000;
 }
 
-.light {
-  --color-bg: #ffffff;
+/* Optional light mode — keeps readability if user toggles theme */
+html.light,
+.light :root {
+  --xws-bg-canvas: #fafafa;
+  --xws-bg-raised: #ffffff;
+  --xws-bg-card: #f4f4f5;
+  --xws-bg-glass: rgba(255, 255, 255, 0.85);
+  --xws-text-primary: #0f172a;
+  --xws-text-secondary: #1e293b;
+  --xws-text-muted: #64748b;
+  --xws-text-faint: #94a3b8;
+  --xws-border: rgba(15, 23, 42, 0.08);
+  --xws-border-strong: rgba(15, 23, 42, 0.12);
+  --xws-accent-dim: rgba(16, 185, 129, 0.12);
+  --xws-blue-dim: rgba(6, 182, 212, 0.12);
+  --color-bg: #fafafa;
   --color-surface: #ffffff;
-  --color-muted: #4b5563;
-  --color-border: #e5e7eb;
-  --color-primary: #ff7a00; /* Figma orange accent */
+  --color-muted: #64748b;
+  --color-border: #e2e8f0;
+  --color-primary: #059669;
   --color-primary-contrast: #ffffff;
 }
 
 .btn-primary {
-  background: var(--color-primary);
-  color: var(--color-primary-contrast);
+  background: var(--xws-accent);
+  color: var(--xws-accent-contrast);
+  font-weight: 600;
+  transition: filter 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-primary:hover {
-  filter: brightness(0.95);
+  filter: brightness(1.06);
+  box-shadow: var(--xws-shadow-glow);
 }
 
+/* Solid mega-menu — no bleed-through */
+.xws-mega-menu {
+  background-color: var(--xws-dropdown-bg);
+  border: 1px solid var(--xws-border-strong);
+  box-shadow:
+    0 24px 48px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+}
 
+.xws-nav-shell {
+  background-color: var(--xws-header-nav-bg);
+  border: 1px solid var(--xws-border);
+}
+
+/* Header & footer stay premium dark even in light mode */
+html.light .xws-site-header,
+html.light .xws-nav-shell,
+html.light .xws-mega-menu,
+html.light footer {
+  --xws-text-primary: #ffffff;
+  --xws-text-muted: #9ca3af;
+  --xws-text-secondary: #e5e7eb;
+  --xws-border: rgba(255, 255, 255, 0.1);
+  --xws-header-bg: rgba(0, 0, 0, 0.94);
+  --xws-header-nav-bg: #0a0a0a;
+  --xws-dropdown-bg: #0c0c0c;
+  --xws-footer-bg: #000000;
+  background-color: var(--xws-header-bg);
+  color: #fff;
+}
+
+html.light footer {
+  background-color: #000 !important;
+}

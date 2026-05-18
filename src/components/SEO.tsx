@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { DEFAULT_PAGE_KEYWORDS, SITE_NAME, SITE_URL } from '@/lib/site-seo';
 
 interface SEOProps {
   title?: string;
@@ -12,10 +13,12 @@ interface SEOProps {
   structuredData?: object;
 }
 
-const defaultTitle = 'Xws Solution | AI & Robotics Lab | SaaS Development Services | Web Development Agency';
-const defaultDescription = 'Xws Solution - Leading SaaS Development Services, Web Development Agency, DevOps Solutions, AI & Robotics Development, Full-Stack Development, Shopify & WordPress Development. Enterprise AI & ML Solutions, Automation & MLOps Services, CI/CD Pipeline Implementation, Custom Software Development.';
-const defaultKeywords = 'SaaS Development Services, Web Development Agency, DevOps Solutions, AI & Robotics Development, Full-Stack Development Services, Shopify Development, WordPress Development, Cloud Solutions, AWS, Azure, Vercel, React.js Development, Next.js Development Company, Enterprise AI Solutions, ML Solutions, Automation Services, MLOps Services, CI/CD Pipeline Implementation, Custom Software Development Services, UX/UI Design for SaaS, E-commerce Web Development Services, React.js, Next.js, Node.js, NestJS, TypeScript, MongoDB, PostgreSQL, Docker, Kubernetes, AI Copilots, Computer Vision, LLM Products, MLOps, Robotics Platforms';
-const siteUrl = 'https://xws.digital';
+const defaultTitle = `${SITE_NAME} | Software House Pakistan | Web, App, AI & Cloud Engineering`;
+const defaultDescription =
+  `${SITE_NAME} is a software house in Pakistan delivering web & mobile apps, AI automation, Shopify and WordPress e-commerce, and cloud-native platforms. ` +
+  'From discovery to production with Next.js, React, Node.js, Flutter, and AWS — trusted by teams worldwide.';
+const defaultKeywords = DEFAULT_PAGE_KEYWORDS;
+const siteUrl = SITE_URL;
 const defaultOgImage = `${siteUrl}/xws-logo.png`;
 
 export default function SEO({
@@ -29,14 +32,14 @@ export default function SEO({
   noindex = false,
   structuredData,
 }: SEOProps) {
-  const fullTitle = title ? `${title} | Xws Solution` : defaultTitle;
+  const fullTitle = title ? `${title} | ${SITE_NAME}` : defaultTitle;
   const canonicalUrl = canonical || siteUrl;
 
   const defaultStructuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Xws Solution",
-    "description": "Full-spectrum digital engineering studio specializing in SaaS Development, Web Development, DevOps, AI & Robotics, and Enterprise Solutions",
+    "name": SITE_NAME,
+    "description": "Software house in Pakistan: web & mobile engineering, AI solutions, e-commerce, and cloud platforms.",
     "url": siteUrl,
     "logo": `${siteUrl}/xws-logo.png`,
     "contactPoint": {
@@ -82,7 +85,7 @@ export default function SEO({
       <meta name="title" content={fullTitle} />
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
-      <meta name="author" content="Xws Solution" />
+      <meta name="author" content={SITE_NAME} />
       <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
       <meta name="language" content="English" />
       <meta name="revisit-after" content="7 days" />
@@ -101,8 +104,8 @@ export default function SEO({
       <meta property="og:image" content={ogImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content={title || 'Xws Solution'} />
-      <meta property="og:site_name" content="Xws Solution" />
+      <meta property="og:image:alt" content={title || SITE_NAME} />
+      <meta property="og:site_name" content={SITE_NAME} />
       <meta property="og:locale" content="en_US" />
 
       {/* Twitter */}
@@ -111,7 +114,7 @@ export default function SEO({
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
-      <meta name="twitter:image:alt" content={title || 'Xws Solution'} />
+      <meta name="twitter:image:alt" content={title || SITE_NAME} />
       <meta name="twitter:creator" content="@xwssolution" />
       <meta name="twitter:site" content="@xwssolution" />
 
@@ -119,7 +122,7 @@ export default function SEO({
       <link rel="canonical" href={canonicalUrl} />
 
       {/* Additional SEO Tags */}
-      <meta name="theme-color" content="#0ea5e9" />
+      <meta name="theme-color" content="#000000" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       <meta name="format-detection" content="telephone=yes" />

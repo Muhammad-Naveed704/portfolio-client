@@ -2,8 +2,11 @@ import Layout from '@/components/Layout';
 import FeaturedProjects from '@/components/FeaturedProjects';
 import Testimonials from '@/components/Testimonials';
 import BlogPosts from '@/components/BlogPosts';
-import GithubShowcase from '@/components/GithubShowcase';
+import TechStackStrip from '@/components/TechStackStrip';
+import { HOME_AI_CARDS } from '@/lib/ai-assets';
+import Image from 'next/image';
 import TeamShowcase from '@/components/TeamShowcase';
+import HeroBackground from '@/components/HeroBackground';
 import SEO from '@/components/SEO';
 import { fetchProjects, Project } from '@/lib/api';
 import { useEffect, useState } from 'react';
@@ -50,41 +53,6 @@ const capabilities = [
   },
 ];
 
-const aiCaseStudies = [
-  {
-    title: 'Vision AI for Smart Manufacturing',
-    description: 'Custom YOLO-based inspection with a React control cockpit that triages defects and syncs telemetry to the cloud.',
-    impact: '95% accuracy · 30% faster QA cycles',
-  },
-  {
-    title: 'GenAI Copilot for Financial Ops',
-    description: 'Secure prompt-engineered assistant layered over ERP data with guardrails, audit logs, and Slack workflows.',
-    impact: '400+ daily tasks automated',
-  },
-  {
-    title: 'Robotics Fleet Dashboard',
-    description: 'Real-time telemetry, mission planning, and OTA updates for collaborative robots controlled via WebRTC.',
-    impact: 'Deployed across 3 continents',
-  },
-];
-
-const deliveryPhases = [
-  { label: 'Discover', detail: 'Research, product strategy, technical archetypes' },
-  { label: 'Design', detail: 'Brand, UX flows, system architecture blueprints' },
-  { label: 'Build', detail: 'Iterative sprints with weekly demos & QA gates' },
-  { label: 'Deploy', detail: 'Automated pipelines, load testing, hardening' },
-  { label: 'Operate', detail: 'Observability, SLOs, dedicated support pods' },
-];
-
-const deliveryStack = [
-  'Next.js · React · Node',
-  'NestJS · GraphQL · tRPC',
-  'Postgres · Mongo · Redis',
-  'Docker · Kubernetes · Vercel',
-  'GitHub Actions · TurboRepo',
-  'Postmark · Resend · Twilio',
-];
-
 export default function Home({ featured, allProjects }: Props) {
   const [clientFeatured, setClientFeatured] = useState<Project[] | null>(featured.length ? featured : null);
   const [clientAll, setClientAll] = useState<Project[] | null>(allProjects.length ? allProjects : null);
@@ -118,15 +86,15 @@ export default function Home({ featured, allProjects }: Props) {
   return (
     <>
       <SEO
-        title="AI & Robotics Lab | SaaS Development Services | Web Development Agency"
-        description="Xws Solution - Leading SaaS Development Services, Web Development Agency, DevOps Solutions, AI & Robotics Development. From prototype AI demos to mission-critical intelligence in production. Full-spectrum product, AI, and platform teams delivering enterprise-grade solutions. Specializing in React.js, Next.js, Node.js, NestJS, WordPress, Shopify, AWS, Azure, Vercel."
-        keywords="SaaS Development Services, Web Development Agency, DevOps Solutions, AI & Robotics Development, Full-Stack Development Services, Shopify Development, WordPress Development, Cloud Solutions AWS Azure Vercel, React.js Development, Next.js Development Company, Enterprise AI Solutions, ML Solutions, Automation Services, MLOps Services, CI/CD Pipeline Implementation, Custom Software Development Services, UX/UI Design for SaaS, E-commerce Web Development Services, AI Copilots, Computer Vision, LLM Products, MLOps, Robotics Platforms, Next.js, React.js, Node.js, NestJS, TypeScript"
+        title="XWS Solution | Software House Pakistan | Web, App, AI & Cloud"
+        description="XWS Solution — software house in Pakistan: web apps, Next.js, React, Node.js, Flutter, AI automation, Shopify & WordPress e-commerce, AWS & DevOps. Karachi-based team, worldwide clients. Enterprise-grade delivery from prototype to production."
+        keywords="software house Pakistan, web development Karachi, app development company Pakistan, Next.js agency, React development services, Node.js backend, Flutter app developer, AI solutions Pakistan, Shopify developer Pakistan, WordPress development, AWS cloud services, DevOps consulting, SaaS development, full stack developer Pakistan, custom software development, ERP integration, ecommerce website, portfolio agency, XWS Solution, Tech Wave Solution, hire remote developers Pakistan, TypeScript, NestJS, MongoDB, PostgreSQL, GraphQL, CI/CD, Vercel deployment, SEO services tech company"
         canonical="https://xws.digital"
         structuredData={{
           "@context": "https://schema.org",
           "@type": "Organization",
-          "name": "Xws Solution",
-          "description": "Full-spectrum digital engineering studio specializing in SaaS Development, Web Development, DevOps, AI & Robotics, and Enterprise Solutions",
+          "name": "XWS Solution",
+          "description": "Software house in Pakistan: web & mobile apps, AI, DevOps, e-commerce, and cloud platforms.",
           "url": "https://xws.digital",
           "logo": "https://xws.digital/xws-logo.png",
           "contactPoint": {
@@ -181,318 +149,333 @@ export default function Home({ featured, allProjects }: Props) {
         }}
       />
       <Layout title="Home">
-      <div className="min-h-screen bg-gradient-to-b from-white via-white to-gray-50 dark:from-gray-950 dark:via-gray-950 dark:to-gray-900">
-        {/* Hero */}
-        <section className="container-responsive pt-20 pb-16 sm:pt-24 sm:pb-20 relative overflow-hidden">
-          {/* Animated background elements */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-20 right-10 w-96 h-96 bg-brand/5 rounded-full blur-3xl animate-pulse" />
-            <div className="absolute bottom-20 left-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse delay-1000" />
-          </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <motion.p 
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-brand/10 to-purple-500/10 text-brand text-sm font-medium mb-6 border border-brand/20"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2 }}
+        <div className="min-h-screen bg-[var(--xws-bg-canvas)] text-[var(--xws-text-primary)] relative overflow-x-hidden">
+          {/* Hero */}
+          <section className="relative min-h-[min(92vh,900px)] flex flex-col justify-center pt-20 pb-20 sm:pt-28 sm:pb-28 font-body">
+            <HeroBackground />
+
+            <div className="container-responsive relative z-10 text-center max-w-5xl lg:max-w-6xl mx-auto w-full">
+              <motion.p
+                className="inline-flex items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--xws-border)] bg-[var(--xws-bg-card)]/80 backdrop-blur-sm px-4 py-2.5 text-xs sm:text-sm font-medium uppercase tracking-[0.2em] text-[var(--xws-text-muted)] mb-8 sm:mb-10 font-body"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
               >
-                <span className="w-2 h-2 bg-brand rounded-full animate-pulse" />
-                Xws Solution · AI & Robotics Lab
+                <span className="w-2 h-2 rounded-full bg-[var(--xws-accent)] shadow-[0_0_12px_var(--xws-accent)]" />
+                Crafting digital excellence
               </motion.p>
-              <h1 className="text-4xl sm:text-4xl lg:text-4xl xl:text-5xl font-bold leading-tight mb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent">
-                From prototype AI demos to{' '}
-                <span className="text-brand bg-gradient-to-r from-brand to-purple-600 bg-clip-text text-transparent">mission-critical intelligence</span>{' '}
-                in production.
-              </h1>
-              <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-2xl">
-                Xws Solution builds AI copilots, computer vision systems, and robotics platforms that pass enterprise security reviews and survive real-world adoption. We pair a dedicated applied AI squad with platform engineers so every experiment is production-ready.
+              <motion.h1
+                className="font-display text-[2.75rem] leading-[1.05] sm:text-6xl md:text-7xl lg:text-8xl xl:text-[5.75rem] font-bold tracking-tight mb-8 sm:mb-10"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.05 }}
+              >
+                <span className="block text-[var(--xws-text-primary)]">Elevate your</span>
+                <span className="block text-[var(--xws-accent)] mt-1 sm:mt-2">
+                  digital presence
+                  <span className="inline-block w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[var(--xws-accent)] ml-2 sm:ml-3 align-middle shadow-xws-glow" />
+                </span>
+              </motion.h1>
+              <motion.p
+                className="font-body text-base sm:text-xl md:text-2xl text-[var(--xws-text-muted)] max-w-3xl mx-auto mb-10 sm:mb-12 leading-relaxed font-normal"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.12 }}
+              >
+                We build cross-platform apps, high-performance websites, and AI-powered workflows — from Karachi to global
+                teams — with the reliability you expect from a serious software partner.
+              </motion.p>
+              <motion.div
+                className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.18 }}
+              >
+                <Link
+                  href="/contact"
+                  className="font-body inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--xws-accent)] px-8 sm:px-10 py-4 sm:py-5 text-sm sm:text-base font-semibold text-[var(--xws-accent-contrast)] shadow-xws-glow hover:brightness-110 transition-all"
+                >
+                  Start your project
+                  <span>→</span>
+                </Link>
+                <Link
+                  href="/services"
+                  className="font-body inline-flex items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--xws-border-strong)] bg-[var(--xws-bg-card)]/40 backdrop-blur-sm px-8 sm:px-10 py-4 sm:py-5 text-sm sm:text-base font-semibold text-[var(--xws-text-primary)] hover:border-[var(--xws-accent)] hover:text-[var(--xws-accent)] transition-colors"
+                >
+                  Explore services
+                </Link>
+              </motion.div>
+              <motion.div
+                className="grid grid-cols-3 gap-6 max-w-lg mx-auto mt-16 pt-10 border-t border-[var(--xws-border)]"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                <div>
+                  <p className="font-display text-3xl sm:text-4xl font-bold text-[var(--xws-accent)]">{launchCount}</p>
+                  <p className="text-xs text-[var(--xws-text-muted)] mt-1 font-body">Shipped work</p>
+                </div>
+                <div>
+                  <p className="text-3xl sm:text-4xl font-bold text-[var(--xws-accent)]">15+</p>
+                  <p className="text-xs text-[var(--xws-text-muted)] mt-1">AI integrations</p>
+                </div>
+                <div>
+                  <p className="text-3xl sm:text-4xl font-bold text-[var(--xws-accent)]">4.9</p>
+                  <p className="text-xs text-[var(--xws-text-muted)] mt-1">Client rating</p>
+                </div>
+              </motion.div>
+            </div>
+          </section>
+
+          {/* Trust strip */}
+          <section className="border-y border-[var(--xws-border)] bg-[var(--xws-bg-raised)] py-10">
+            <div className="container-responsive text-center">
+              <p className="text-[10px] sm:text-xs uppercase tracking-[0.35em] text-[var(--xws-text-faint)] mb-6">
+                Trusted delivery · modern stack
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <Link href="/contact" >
-                <motion.span
-                  
-                  className="px-8 py-4 rounded-full bg-gradient-to-r from-brand via-brand to-purple-600 text-white font-semibold hover:shadow-2xl hover:shadow-brand/50 hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  >
-                  Start a Project
-                  <span className="text-lg">→</span>
-                </motion.span>
-                  </Link> 
-                <Link href="/ai">
-                <motion.span
-                  
-                  className="px-8 py-4 rounded-full border-2 border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-medium flex items-center justify-center gap-2"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  >
-                  Explore AI Studio
-                  <span>↗</span>
-                </motion.span>
-                  </Link>
+              <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 text-[var(--xws-text-muted)] text-sm font-medium opacity-60">
+                {['Next.js', 'React', 'Node.js', 'Flutter', 'AWS', 'PostgreSQL', 'Shopify', 'WordPress'].map((name) => (
+                  <span key={name}>{name}</span>
+                ))}
               </div>
-              <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-200 dark:border-gray-800">
-                <div>
-                  <p className="text-4xl font-bold text-gray-900 dark:text-white mb-1">{launchCount}</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Digital Launches</p>
-                </div>
-                <div>
-                  <p className="text-4xl font-bold text-gray-900 dark:text-white mb-1">15+</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">AI Models</p>
-                </div>
-                <div>
-                  <p className="text-4xl font-bold text-gray-900 dark:text-white mb-1">4.9/5</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Client Rating</p>
-                </div>
-              </div>
-            </motion.div>
-            <motion.div
-              className="relative"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-            >
-              <div className="absolute -inset-4 bg-gradient-to-r from-brand/30 via-purple-500/20 to-brand/10 blur-3xl opacity-60 animate-pulse" />
-              <div className="relative rounded-3xl border border-gray-200/50 dark:border-gray-800/50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl p-8 shadow-2xl">
-                <div className="flex items-center justify-between mb-6">
-                  <div>
-                    <p className="font-bold text-gray-900 dark:text-white text-lg">AI Production Dashboard</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Real-time monitoring</p>
-                  </div>
-                  <span className="text-xs text-green-500 bg-green-500/10 px-3 py-1.5 rounded-full font-medium flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                    Live
-                  </span>
-                </div>
-                <div className="space-y-5 mb-6">
-                  {deliveryPhases.map((phase, idx) => (
-                    <motion.div 
-                      key={phase.label}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.3 + idx * 0.1 }}
-                    >
-                      <div className="flex items-center justify-between mb-1">
-                        <p className="text-sm font-semibold text-gray-900 dark:text-white">{phase.label}</p>
-                        <span className="text-xs text-brand font-medium">Active</span>
+            </div>
+          </section>
+
+          {/* Feature cards with charts */}
+          <section className="container-responsive py-20 sm:py-24">
+            <div className="text-center max-w-2xl mx-auto mb-14">
+              <p className="inline-flex items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--xws-border)] px-3 py-1.5 text-xs text-[var(--xws-text-muted)] mb-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--xws-accent)]" />
+                Powerful features
+              </p>
+              <h2 className="text-3xl sm:text-4xl font-bold text-[var(--xws-text-primary)]">
+                Everything you need to <span className="text-[var(--xws-accent)]">build and scale</span>
+              </h2>
+              <p className="mt-4 text-[var(--xws-text-muted)]">
+                Enterprise-minded engineering with startup speed — observability, security, and growth baked in.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  title: 'Scale at speed',
+                  body: 'Architecture that grows with traffic — caching, queues, and horizontal scaling patterns.',
+                  chart: 'bars' as const,
+                },
+                {
+                  title: 'Instant deploy',
+                  body: 'CI/CD, previews, and zero-downtime releases so your roadmap never waits on infrastructure.',
+                  chart: 'deploy' as const,
+                },
+                {
+                  title: 'Real-time analytics',
+                  body: 'Dashboards and telemetry so product and engineering see the same truth, in real time.',
+                  chart: 'line' as const,
+                },
+              ].map((card, idx) => (
+                <motion.div
+                  key={card.title}
+                  className="xws-card p-6 sm:p-8 flex flex-col"
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.08 }}
+                >
+                  <div className="h-40 mb-6 rounded-xl border border-[var(--xws-border)] bg-[var(--xws-bg-raised)] relative overflow-hidden flex items-end justify-center gap-1.5 px-6 pb-4">
+                    {card.chart === 'bars' && (
+                      <>
+                        {[35, 55, 28, 70, 42, 88, 50].map((h, i) => (
+                          <div
+                            key={i}
+                            className={`w-3 rounded-t xws-bar ${i === 5 ? 'bg-[var(--xws-accent)] shadow-[0_0_20px_rgba(52,211,153,0.5)]' : 'bg-white/10'}`}
+                            style={{ height: `${h}%`, animationDelay: `${i * 0.06}s` }}
+                          />
+                        ))}
+                      </>
+                    )}
+                    {card.chart === 'deploy' && (
+                      <div className="absolute inset-3 rounded-lg border border-[var(--xws-border)] bg-[var(--xws-bg-card)] p-3 flex items-center gap-3">
+                        <div className="w-12 h-12 rounded-lg bg-[var(--xws-accent)]/20 flex items-center justify-center text-[var(--xws-accent)] shadow-xws-glow">
+                          <span className="text-xl font-bold">⚡</span>
+                        </div>
+                        <div className="text-left text-xs">
+                          <p className="text-[var(--xws-text-faint)] uppercase tracking-wider">Deployment</p>
+                          <p className="text-[var(--xws-text-primary)] font-semibold">Live & active</p>
+                          <p className="text-[var(--xws-accent)] mt-1 flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[var(--xws-accent)] animate-pulse" />
+                            All systems operational
+                          </p>
+                        </div>
                       </div>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{phase.detail}</p>
-                      <div className="h-2 mt-2 rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden">
-                        <motion.div 
-                          className="h-full bg-gradient-to-r from-brand to-purple-600"
-                          initial={{ width: 0 }}
-                          animate={{ width: `${75 + idx * 5}%` }}
-                          transition={{ duration: 1, delay: 0.5 + idx * 0.1 }}
+                    )}
+                    {card.chart === 'line' && (
+                      <svg viewBox="0 0 200 80" className="w-full h-full absolute bottom-0 left-0" preserveAspectRatio="none">
+                        <defs>
+                          <linearGradient id="gline" x1="0" x2="1" y1="0" y2="0">
+                            <stop offset="0%" stopColor="var(--xws-blue)" />
+                            <stop offset="100%" stopColor="var(--xws-accent)" />
+                          </linearGradient>
+                        </defs>
+                        <path
+                          d="M0,60 Q40,55 80,40 T160,15 L200,10"
+                          fill="none"
+                          stroke="url(#gline)"
+                          strokeWidth="2.5"
+                          className="drop-shadow-[0_0_8px_rgba(52,211,153,0.6)]"
                         />
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-                <div className="grid grid-cols-2 gap-3 text-xs pt-4 border-t border-gray-200 dark:border-gray-800">
-                  {deliveryStack.map((item) => (
-                    <div key={item} className="px-3 py-2.5 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 border border-gray-200/50 dark:border-gray-700/50 font-medium text-gray-700 dark:text-gray-300">
-                      {item}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Key Metrics Section */}
-        <section className="container-responsive py-16 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950 rounded-3xl my-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <motion.div
-              className="text-center p-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="text-5xl font-bold text-brand mb-2">2+</div>
-              <div className="text-sm uppercase tracking-wider text-gray-500 dark:text-gray-400 font-medium">Models Orchestrated</div>
-            </motion.div>
-            <motion.div
-              className="text-center p-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <div className="text-5xl font-bold text-brand mb-2">1</div>
-              <div className="text-sm uppercase tracking-wider text-gray-500 dark:text-gray-400 font-medium">Robotics Cells Automated</div>
-            </motion.div>
-            <motion.div
-              className="text-center p-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <div className="text-5xl font-bold text-brand mb-2">10+</div>
-              <div className="text-sm uppercase tracking-wider text-gray-500 dark:text-gray-400 font-medium">ML Deployments / Month</div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Capabilities */}
-        <section className="container-responsive py-20">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12">
-            <div>
-              <p className="text-sm uppercase tracking-[0.4em] text-brand font-medium mb-2">What we do</p>
-              <h2 className="text-3xl sm:text-4xl font-bold mt-3 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
-                Full-spectrum product, AI, and platform teams.
-              </h2>
-              <p className="text-gray-600 dark:text-gray-400 mt-3 max-w-2xl">
-                End-to-end delivery from strategy to operations with dedicated teams that own the entire product lifecycle.
-              </p>
-            </div>
-            <Link href="/services">
-            <motion.span 
-              className="text-brand font-semibold hover:underline flex items-center gap-2"
-              whileHover={{ x: 5 }}
-            >
-              Explore services →
-            </motion.span>
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {capabilities.map((capability, idx) => (
-              <motion.div
-                key={capability.title}
-                className="group p-8 rounded-3xl border border-gray-200/50 dark:border-gray-800/50 bg-white dark:bg-gray-900 shadow-lg hover:shadow-2xl hover:shadow-brand/10 transition-all duration-300 hover:border-brand/30"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                whileHover={{ y: -5 }}
-              >
-                <div className="flex items-center justify-between mb-5">
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{capability.title}</h3>
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-brand/20 to-purple-500/20 text-brand flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
-                    ●
+                        <circle cx="160" cy="15" r="4" fill="var(--xws-accent)" />
+                        <rect x="168" y="6" width="28" height="14" rx="6" fill="var(--xws-accent)" opacity="0.9" />
+                        <text x="172" y="16" fill="var(--xws-accent-contrast)" fontSize="8" fontWeight="bold">
+                          +127%
+                        </text>
+                      </svg>
+                    )}
                   </div>
-                </div>
-                <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">{capability.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {capability.badges.map((badge) => (
-                    <span 
-                      key={badge} 
-                      className="px-3 py-1.5 rounded-full bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-900 text-sm text-gray-700 dark:text-gray-300 font-medium border border-gray-200 dark:border-gray-700"
-                    >
-                      {badge}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* AI case studies */}
-        <section className="container-responsive py-20 relative">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-12">
-            <div>
-              <p className="text-sm uppercase tracking-[0.35em] text-brand font-medium mb-2">AI & Robotics Lab</p>
-              <h2 className="text-3xl sm:text-4xl font-bold mt-3 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
-                Proof of impact across industries.
-              </h2>
-              <p className="text-gray-600 dark:text-gray-400 mt-3 max-w-2xl">
-                Real-world deployments of AI systems, computer vision, and robotics platforms delivering measurable business outcomes.
-              </p>
+                  <h3 className="text-xl font-bold text-[var(--xws-text-primary)] mb-2">{card.title}</h3>
+                  <p className="text-sm text-[var(--xws-text-muted)] leading-relaxed flex-1">{card.body}</p>
+                </motion.div>
+              ))}
             </div>
-            <Link href="/ai">
-            <motion.span 
-               
-              className="px-6 py-3 rounded-full border-2 border-brand text-brand hover:bg-brand hover:text-white transition-all font-medium"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              >
-              Visit AI Studio →
-            </motion.span>
-              </Link>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {aiCaseStudies.map((caseStudy, index) => (
-              <motion.div
-                key={caseStudy.title}
-                className="group rounded-3xl border border-gray-200/50 dark:border-gray-800/50 bg-gradient-to-b from-white to-gray-50/50 dark:from-gray-900 dark:to-gray-950/50 p-6 flex flex-col hover:shadow-2xl hover:shadow-brand/10 transition-all duration-300 hover:border-brand/30"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
-              >
-                <div className="h-48 rounded-2xl bg-gradient-to-br from-brand/20 via-purple-500/20 to-brand/10 mb-6 border border-white/10 relative overflow-hidden group-hover:scale-105 transition-transform duration-300">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(14,165,233,.3),_transparent_70%)]" />
-                  <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-overlay" />
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <div className="bg-black/40 backdrop-blur-sm rounded-lg px-3 py-2">
-                      <div className="text-xs uppercase tracking-[0.2em] text-white/90 font-medium">AI Deployment</div>
-                    </div>
-                  </div>
-                </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">{caseStudy.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300 flex-1 leading-relaxed">{caseStudy.description}</p>
-                <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-800">
-                  <p className="text-sm font-bold text-brand">{caseStudy.impact}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
+          </section>
 
-        {/* Featured projects */}
-        <section className="container-responsive py-16">
-          <div className="flex items-center justify-between mb-10">
-            <h2 className="text-3xl font-semibold">Recent engineering launches</h2>
-            <a href="/projects" className="text-sm text-brand font-semibold hover:underline">See all work</a>
-          </div>
-      <FeaturedProjects projects={effectiveFeatured} />
-        </section>
-
-        {/* Delivery playbook & testimonials */}
-        <section className="bg-gray-900 text-white py-16">
-          
-           
-            <div>
-      <Testimonials />
-            </div>
-          
-        </section>
-
-        {/* Team */}
-        <TeamShowcase />
-
-        {/* Insights & OSS */}
-        <section className="container-responsive py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-1 gap-12">
-            <div className="lg:col-span-2">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-3xl font-semibold">Insights & field notes</h2>
-                <a href="/insights" className="text-brand text-sm font-semibold hover:underline">Read articles</a>
-              </div>
-      <BlogPosts />
-            </div>
-            <div>
-              <div className="p-8 rounded-3xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 h-full flex flex-col">
-                <h3 className="text-2xl font-semibold mb-4">Open engineering</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-6">
-                  We contribute to the tools we rely on. Explore experiments, starter kits, and dev tooling we maintain for the community.
+          {/* Capabilities */}
+          <section className="container-responsive py-16 sm:py-20 border-t border-[var(--xws-border)]">
+            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
+              <div>
+                <p className="text-xs uppercase tracking-[0.35em] text-[var(--xws-accent)] font-semibold mb-2">What we do</p>
+                <h2 className="text-3xl sm:text-4xl font-bold text-[var(--xws-text-primary)] max-w-xl">
+                  Full-spectrum product, AI, and platform teams.
+                </h2>
+                <p className="text-[var(--xws-text-muted)] mt-3 max-w-xl">
+                  End-to-end delivery from strategy to operations — dedicated squads that own outcomes, not tickets.
                 </p>
-      <GithubShowcase />
               </div>
+              <Link
+                href="/services"
+                className="text-[var(--xws-accent)] font-semibold hover:underline inline-flex items-center gap-1 shrink-0"
+              >
+                Explore services →
+              </Link>
             </div>
-          </div>
-        </section>
-      </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {capabilities.map((capability, idx) => (
+                <motion.div
+                  key={capability.title}
+                  className="xws-card p-8 group"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.06 }}
+                >
+                  <div className="flex items-start justify-between gap-4 mb-4">
+                    <h3 className="text-xl font-bold text-[var(--xws-text-primary)] group-hover:text-[var(--xws-accent)] transition-colors">
+                      {capability.title}
+                    </h3>
+                    <span className="w-2 h-2 rounded-full bg-[var(--xws-accent)] shadow-xws-glow shrink-0 mt-2" />
+                  </div>
+                  <p className="text-[var(--xws-text-muted)] mb-6 leading-relaxed">{capability.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {capability.badges.map((badge) => (
+                      <span
+                        key={badge}
+                        className="px-3 py-1.5 rounded-[var(--radius-pill)] text-xs font-medium border border-[var(--xws-border)] bg-[var(--xws-bg-raised)] text-[var(--xws-text-secondary)]"
+                      >
+                        {badge}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
+          {/* AI case studies */}
+          <section className="container-responsive py-16 sm:py-20">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-12">
+              <div>
+                <p className="text-xs uppercase tracking-[0.35em] text-[var(--xws-accent)] font-semibold mb-2">AI & robotics lab</p>
+                <h2 className="text-3xl sm:text-4xl font-bold text-[var(--xws-text-primary)]">Proof of impact across industries.</h2>
+                <p className="text-[var(--xws-text-muted)] mt-3 max-w-2xl">
+                  Deployments that combine models, data pipelines, and operator-grade UX — not slide-deck experiments.
+                </p>
+              </div>
+              <Link
+                href="/ai"
+                className="inline-flex items-center justify-center rounded-[var(--radius-pill)] border border-[var(--xws-accent)] text-[var(--xws-accent)] px-6 py-3 text-sm font-semibold hover:bg-[var(--xws-accent-dim)] transition-colors shrink-0"
+              >
+                Visit AI Studio →
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {HOME_AI_CARDS.map((caseStudy, index) => (
+                <motion.div
+                  key={caseStudy.title}
+                  className="xws-card flex flex-col overflow-hidden group"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.08 }}
+                >
+                  <div className="relative h-44 sm:h-48 overflow-hidden border-b border-[var(--xws-border)]">
+                    <Image
+                      src={caseStudy.image}
+                      alt={caseStudy.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                    
+                    <span className="absolute bottom-3 left-4 text-[10px] uppercase tracking-widest text-[var(--xws-accent)] font-semibold">
+                      AI deployment
+                    </span>
+                  </div>
+                  <div className="p-6 flex flex-col flex-1">
+                    <h3 className="text-lg font-bold text-[var(--xws-text-primary)] mb-2 group-hover:text-[var(--xws-accent)] transition-colors">{caseStudy.title}</h3>
+                    <p className="text-sm text-[var(--xws-text-muted)] flex-1 leading-relaxed">{caseStudy.description}</p>
+                    <p className="mt-4 text-sm font-semibold text-[var(--xws-accent)]">{caseStudy.impact}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
+          <TechStackStrip />
+
+          {/* Featured projects */}
+          <section className="container-responsive py-16 sm:py-20">
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+              <div>
+                <p className="text-xs uppercase tracking-[0.35em] text-[var(--xws-accent)] font-semibold mb-2">Our projects</p>
+                <h2 className="text-3xl font-bold text-[var(--xws-text-primary)]">Work we have shipped</h2>
+              </div>
+              <Link href="/projects" className="text-sm font-semibold text-[var(--xws-accent)] hover:underline">
+                View all projects →
+              </Link>
+            </div>
+            <FeaturedProjects projects={effectiveFeatured} hideIntro />
+          </section>
+
+          {/* Testimonials */}
+          <section className="bg-[var(--xws-bg-raised)] border-y border-[var(--xws-border)] py-4">
+            <Testimonials />
+          </section>
+
+          <TeamShowcase />
+
+          <section className="container-responsive py-16 sm:py-20">
+            <div className="grid grid-cols-1 lg:grid-cols-1 gap-12">
+              <div>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-[var(--xws-text-primary)]">Insights & field notes</h2>
+                  <Link href="/insights" className="text-sm font-semibold text-[var(--xws-accent)] hover:underline">
+                    Read articles →
+                  </Link>
+                </div>
+                <BlogPosts />
+              </div>
+              {/* GitHub showcase hidden */}
+            </div>
+          </section>
+        </div>
       </Layout>
     </>
   );

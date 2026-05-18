@@ -2,12 +2,12 @@ import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang="en" className="dark">
       <Head>
         {/* Default Meta Tags - Can be overridden by page-specific SEO component */}
-        <meta name="description" content="Xws Solution - Leading SaaS Development Services, Web Development Agency, DevOps Solutions, AI & Robotics Development, Full-Stack Development Services, Shopify & WordPress Development" />
-        <meta name="keywords" content="SaaS Development Services, Web Development Agency, DevOps Solutions, AI & Robotics Development, Full-Stack Development Services, Shopify Development, WordPress Development, Cloud Solutions, AWS, Azure, Vercel, React.js, Next.js, Node.js, NestJS" />
-        <meta name="author" content="Xws Solution" />
+        <meta name="description" content="XWS Solution — software house in Pakistan: web & mobile apps, Next.js, React, Node.js, Flutter, AI automation, Shopify, WordPress, AWS, DevOps. Karachi-based engineering for global clients." />
+        <meta name="keywords" content="XWS Solution, software house Pakistan, web development Karachi, Next.js agency, React developer, Flutter apps, AI solutions Pakistan, Shopify Pakistan, WordPress agency, Node.js, NestJS, AWS, DevOps, SaaS development, full stack Pakistan" />
+        <meta name="author" content="XWS Solution" />
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         

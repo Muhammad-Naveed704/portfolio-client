@@ -34,7 +34,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={client}>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
         <div className={`${display.variable} ${body.variable}`}>
           <Component {...pageProps} />
           <Toaster richColors position="top-right" />

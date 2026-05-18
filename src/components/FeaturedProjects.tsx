@@ -6,41 +6,45 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-type Props = { 
-  projects: Project[] 
+type Props = {
+  projects: Project[];
+  /** When true, section title block is omitted (parent page provides heading). */
+  hideIntro?: boolean;
 };
 
-export default function FeaturedProjects({ projects }: Props) {
+export default function FeaturedProjects({ projects, hideIntro }: Props) {
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
 
   if (projects.length === 0) {
     return (
-      <section className="container-responsive py-16" id="projects">
+      <section className={`${hideIntro ? 'py-4' : 'container-responsive py-16'}`} id="projects">
         <div className="text-center">
-          <h2 className="text-3xl font-bold mb-4">Featured Projects</h2>
-          <p className="text-gray-600 dark:text-gray-300">No featured projects available.</p>
+          <h2 className="text-2xl font-bold mb-3 text-[var(--xws-text-primary)]">Featured projects</h2>
+          <p className="text-[var(--xws-text-muted)]">No featured projects available.</p>
         </div>
       </section>
     );
   }
 
   return (
-    <section className="container-responsive py-16" id="projects">
-      <div className="text-center mb-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-4xl font-bold mb-4">
-            Featured <span className="text-brand">Projects</span>
-          </h2>
-          <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Explore my latest work and creative solutions that showcase my expertise in modern web development
-          </p>
-        </motion.div>
-      </div>
+    <section className={hideIntro ? 'py-0' : 'container-responsive py-16'} id="projects">
+      {!hideIntro && (
+        <div className="text-center mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl font-bold mb-4 text-[var(--xws-text-primary)]">
+              Featured <span className="text-brand">Projects</span>
+            </h2>
+            <p className="text-[var(--xws-text-muted)] max-w-2xl mx-auto">
+              Explore my latest work and creative solutions that showcase my expertise in modern web development
+            </p>
+          </motion.div>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
         {projects.map((project, index) => (
@@ -56,9 +60,9 @@ export default function FeaturedProjects({ projects }: Props) {
       </div>
 
       <div className="text-center">
-        <Link 
+        <Link
           href="/projects"
-          className="inline-flex items-center gap-2 px-8 py-3 rounded-tr-3xl rounded-bl-3xl  bg-brand text-white font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300"
+          className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-[var(--xws-border)] bg-[var(--xws-bg-card)] text-[var(--xws-text-primary)] font-semibold hover:border-[var(--xws-accent)] hover:text-[var(--xws-accent)] transition-all duration-300"
         >
           View All Projects
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -110,7 +114,7 @@ function ProjectCard({
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >
-      <div className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200 dark:border-gray-800">
+      <div className="bg-[var(--xws-bg-card)] rounded-2xl overflow-hidden shadow-lg hover:shadow-xws-glow transition-all duration-500 border border-[var(--xws-border)]">
         {/* Image Section with Slider */}
         <div className="relative h-64 overflow-hidden">
           {images.length > 0 ? (
@@ -195,7 +199,7 @@ function ProjectCard({
         {/* Content Section */}
         <div className="p-6">
           <div className="flex items-start justify-between mb-3">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand transition-colors duration-300">
+            <h3 className="text-xl font-bold text-[var(--xws-text-primary)] group-hover:text-brand transition-colors duration-300">
               {project.title}
             </h3>
             <motion.div
@@ -208,7 +212,7 @@ function ProjectCard({
             </motion.div>
           </div>
 
-          <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3 leading-relaxed">
+          <p className="text-[var(--xws-text-muted)] mb-4 line-clamp-3 leading-relaxed">
             {project.description}
           </p>
 
@@ -219,13 +223,13 @@ function ProjectCard({
                 {project.techStack.slice(0, 4).map((tech) => (
                   <span 
                     key={tech}
-                    className="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-brand/10 hover:text-brand transition-colors duration-300"
+                    className="px-3 py-1 rounded-full bg-[var(--xws-bg-raised)] border border-[var(--xws-border)] text-sm font-medium text-[var(--xws-text-secondary)] hover:border-brand hover:text-brand transition-colors duration-300"
                   >
                     {tech}
                   </span>
                 ))}
                 {project.techStack.length > 4 && (
-                  <span className="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-sm font-medium text-gray-500">
+                  <span className="px-3 py-1 rounded-full bg-[var(--xws-bg-raised)] border border-[var(--xws-border)] text-sm font-medium text-[var(--xws-text-faint)]">
                     +{project.techStack.length - 4} more
                   </span>
                 )}
@@ -250,7 +254,7 @@ function ProjectCard({
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-center font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300"
+                className="flex-1 px-4 py-2 rounded-full border border-[var(--xws-border)] text-center font-medium text-[var(--xws-text-primary)] hover:bg-[var(--xws-accent-dim)] transition-all duration-300"
               >
                 GitHub
               </a>

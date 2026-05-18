@@ -16,7 +16,7 @@ export default function ThemeToggle() {
     <div
       onClick={() => setTheme(isDark ? "light" : "dark")}
       className={`w-16 h-8 flex items-center rounded-full cursor-pointer p-1 transition ${
-        isDark ? "justify-end bg-brand" : "justify-start bg-gray-100"
+        isDark ? "justify-end bg-[var(--xws-accent)]" : "justify-start bg-zinc-600"
       }`}
     >
       <motion.div
@@ -24,7 +24,7 @@ export default function ThemeToggle() {
         className="w-6 h-6 rounded-full bg-white shadow flex items-center justify-center"
         transition={{ type: "spring", stiffness: 700, damping: 30 }}
       >
-        {isDark ? <Moon size={16} /> : <Sun size={16} />}
+        {isDark ? <Moon size={16} className="text-[var(--xws-accent-contrast)]" /> : <Sun size={16} className="text-amber-500" />}
       </motion.div>
     </div>
   );
