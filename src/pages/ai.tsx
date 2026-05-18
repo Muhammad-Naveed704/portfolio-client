@@ -48,16 +48,16 @@ export default function AIStudioPage() {
         <div className="min-h-screen bg-[var(--xws-bg-canvas)] text-[var(--xws-text-primary)]">
           {/* Hero */}
           <section className="relative overflow-hidden">
-            <div className="absolute inset-0 bg-xws-radial-green pointer-events-none" />
+            <div className="absolute inset-0 bg-xws-radial-green pointer-events-none hidden dark:block" />
             <div className="absolute inset-0 pointer-events-none">
               <Image
                 src={AI_IMAGES.aidevPng}
                 alt=""
                 fill
-                className="object-cover opacity-20"
+                className="object-cover opacity-[0.12] dark:opacity-20"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/90 to-[var(--xws-bg-canvas)]" />
+              <div className="absolute inset-0 bg-gradient-to-b from-[var(--xws-bg-canvas)] via-[var(--xws-bg-canvas)]/92 to-[var(--xws-bg-canvas)] dark:from-black/75 dark:via-black/88 dark:to-[var(--xws-bg-canvas)]" aria-hidden />
             </div>
 
             <div className="container-responsive py-20 sm:py-28 relative z-10">
@@ -71,8 +71,8 @@ export default function AIStudioPage() {
                   <Sparkles className="w-4 h-4" />
                   AI & Robotics Lab
                 </p>
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  From prototype demos to{' '}
+                <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+                  <span className="text-[var(--xws-text-primary)]">From prototype demos to </span>
                   <span className="text-[var(--xws-accent)]">mission-critical intelligence</span>
                 </h1>
                 <p className="text-lg text-[var(--xws-text-muted)] leading-relaxed max-w-2xl">
