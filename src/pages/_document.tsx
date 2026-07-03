@@ -1,9 +1,18 @@
-import { Html, Head, Main, NextScript } from 'next/document';
+import { Html, Head, Main, NextScript } from "next/document";
+import Script from "next/script";
 
 export default function Document() {
   return (
     <Html lang="en" className="dark">
       <Head>
+      <Script
+          id="adsense"
+          async
+          strategy="afterInteractive"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1749238759295111"
+          crossOrigin="anonymous"
+        />
+
         {/* Default Meta Tags - Can be overridden by page-specific SEO component */}
         <meta name="description" content="XWS Solution — software house in Pakistan: web & mobile apps, Next.js, React, Node.js, Flutter, AI automation, Shopify, WordPress, AWS, DevOps. Karachi-based engineering for global clients." />
         <meta name="keywords" content="XWS Solution, software house Pakistan, web development Karachi, Next.js agency, React developer, Flutter apps, AI solutions Pakistan, Shopify Pakistan, WordPress agency, Node.js, NestJS, AWS, DevOps, SaaS development, full stack Pakistan" />
@@ -29,5 +38,3 @@ export default function Document() {
     </Html>
   );
 }
-
-
