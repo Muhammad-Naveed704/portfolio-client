@@ -5,6 +5,7 @@ import '@/styles/theme.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { Toaster } from 'sonner';
+import CookieConsent from '@/components/CookieConsent';
 import { Inter, Poppins } from 'next/font/google';
 
 const display = Poppins({ subsets: ['latin'], weight: ['500','600','700'], variable: '--font-display' });
@@ -38,6 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <div className={`${display.variable} ${body.variable}`}>
           <Component {...pageProps} />
           <Toaster richColors position="top-right" />
+          <CookieConsent />
         </div>
       </ThemeProvider>
     </QueryClientProvider>

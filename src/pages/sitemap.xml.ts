@@ -16,6 +16,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     { path: '/insights', priority: '0.7', changefreq: 'weekly' },
     { path: '/privacy', priority: '0.5', changefreq: 'yearly' },
     { path: '/terms', priority: '0.5', changefreq: 'yearly' },
+    { path: '/cookies', priority: '0.5', changefreq: 'yearly' },
   ];
   
   const body = `<?xml version="1.0" encoding="UTF-8"?>

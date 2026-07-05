@@ -565,6 +565,9 @@ export default function Layout({ title, children }: Props) {
                 <Link href="/terms" className="hover:text-[var(--xws-accent)] transition-colors">
                   Terms
                 </Link>
+                <Link href="/cookies" className="hover:text-[var(--xws-accent)] transition-colors">
+                  Cookies
+                </Link>
                 <span className="text-white/40">Karachi · Remote worldwide</span>
               </div>
             </div>
