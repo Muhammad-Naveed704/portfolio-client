@@ -55,6 +55,7 @@ const openPositions = [
     department: 'Engineering',
     type: 'Full-time',
     location: 'Remote',
+    status: 'closed' as const,
     description: 'We are looking for an experienced full-stack developer to join our team. You will work on cutting-edge web applications using modern technologies like Next.js, React, and Node.js.',
     requirements: ['5+ years experience', 'React/Next.js expertise', 'Node.js/NestJS', 'TypeScript'],
   },
@@ -63,6 +64,7 @@ const openPositions = [
     department: 'AI Studio',
     type: 'Full-time',
     location: 'Remote',
+    status: 'closed' as const,
     description: 'Join our AI team to build cutting-edge machine learning solutions. Work on LLM products, computer vision systems, and robotics platforms.',
     requirements: ['ML/AI experience', 'Python/PyTorch', 'LangChain/OpenAI', 'MLOps knowledge'],
   },
@@ -71,6 +73,7 @@ const openPositions = [
     department: 'Engineering',
     type: 'Full-time',
     location: 'Remote',
+    status: 'closed' as const,
     description: 'Create beautiful and functional user interfaces with React and Next.js. Work on responsive designs and modern UI/UX patterns.',
     requirements: ['3+ years experience', 'React/Next.js', 'Tailwind CSS', 'TypeScript'],
   },
@@ -79,6 +82,7 @@ const openPositions = [
     department: 'Platform',
     type: 'Full-time',
     location: 'Remote',
+    status: 'closed' as const,
     description: 'Build and maintain our CI/CD pipelines and cloud infrastructure. Ensure high availability and scalability of our platforms.',
     requirements: ['AWS/Azure experience', 'Docker/Kubernetes', 'CI/CD pipelines', 'Infrastructure as Code'],
   },
@@ -98,8 +102,8 @@ export default function CareerPage() {
     <>
       <SEO
         title="Careers | Join Our Team | Xws Solution"
-        description="Build your career with Xws Solution. We're looking for talented Software Engineers, Full-Stack Developers, AI/ML Engineers, Frontend Developers, and DevOps Engineers. Remote-first positions available with competitive salary, learning opportunities, and great work culture. Join our team of experts in SaaS Development, Web Development, AI & Robotics."
-        keywords="Xws Solution Careers, Software Engineer Jobs, Full-Stack Developer Jobs, AI Engineer Jobs, ML Engineer Jobs, Frontend Developer Jobs, DevOps Engineer Jobs, Remote Jobs, Software Development Jobs, Web Development Jobs, AI Development Jobs, Technology Jobs, Karachi Jobs, Pakistan Jobs, Remote Work, Tech Careers"
+        description="Careers at Xws Solution. Current openings are closed while we review applications. Spontaneous applications welcome via contact. Remote-first software house in Pakistan."
+        keywords="Xws Solution Careers, Software Engineer Jobs, Remote Jobs, Software Development Jobs, Karachi Jobs, Pakistan Jobs, Tech Careers"
         canonical="https://xws.digital/career"
       />
       <Layout title="Career">
@@ -222,27 +226,36 @@ export default function CareerPage() {
                 transition={{ duration: 0.6 }}
               >
                 <h2 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
-                  Open Positions
+                  Positions
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-400">
-                  Check out our current openings
+                  All current openings are closed while we review applications
                 </p>
               </motion.div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {openPositions.map((position, index) => (
+                {openPositions.map((position, index) => {
+                  const isClosed = position.status === 'closed';
+                  return (
                   <motion.div
                     key={position.title}
-                    className="group rounded-3xl border-2 border-gray-200 dark:border-gray-800 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-950 p-8 hover:shadow-2xl transition-all duration-300 hover:border-brand/50"
+                    className={`group rounded-3xl border-2 border-gray-200 dark:border-gray-800 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-950 p-8 transition-all duration-300 ${isClosed ? 'opacity-80' : 'hover:shadow-2xl hover:border-brand/50'}`}
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    whileHover={{ y: -8, scale: 1.01 }}
+                    whileHover={isClosed ? undefined : { y: -8, scale: 1.01 }}
                   >
                     <div className="flex items-start justify-between mb-6">
                       <div className="flex-1">
-                        <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{position.title}</h3>
+                        <div className="flex flex-wrap items-center gap-3 mb-4">
+                          <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{position.title}</h3>
+                          {isClosed && (
+                            <span className="px-3 py-1 rounded-full bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 text-xs font-bold uppercase tracking-wide border border-red-200 dark:border-red-800">
+                              Closed
+                            </span>
+                          )}
+                        </div>
                         <div className="flex flex-wrap gap-2 mb-4">
                           <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-brand/10 to-purple-500/10 text-brand text-sm font-semibold border border-brand/20">
                             <Briefcase className="w-4 h-4" />
@@ -279,15 +292,22 @@ export default function CareerPage() {
                       </div>
                     </div>
 
-                    <Link
-                      href="/contact"
-                      className="inline-flex items-center gap-2 text-brand font-bold hover:text-purple-600 transition-colors text-lg group"
-                    >
-                      Apply Now
-                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </Link>
+                    {isClosed ? (
+                      <span className="inline-flex items-center gap-2 text-gray-500 dark:text-gray-400 font-semibold text-lg cursor-not-allowed">
+                        Applications closed
+                      </span>
+                    ) : (
+                      <Link
+                        href="/contact"
+                        className="inline-flex items-center gap-2 text-brand font-bold hover:text-purple-600 transition-colors text-lg group"
+                      >
+                        Apply Now
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    )}
                   </motion.div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </section>
